@@ -1,0 +1,1 @@
+# lapsus-planejador-2026
