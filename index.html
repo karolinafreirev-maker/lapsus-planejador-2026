@@ -1,211 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planejador Estratégico LAPSUS 2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
-
-    <!-- Header / Navbar -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
-                    L
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold text-slate-900 leading-none">Planejador LAPSUS 2026</h1>
-                    <p class="text-xs text-slate-500 mt-1">Liga Acadêmica de Psicologia e Saúde Única e Coletiva / SUS (UniFTC)</p>
-                </div>
-            </div>
-
-            <!-- Navegação Principal -->
-            <nav class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl text-sm font-medium">
-                <button onclick="switchTab('banco')" id="tab-banco" class="nav-btn px-4 py-2 rounded-lg bg-white text-emerald-700 shadow-sm transition-all">
-                    Banco de Ideias
-                </button>
-                <button onclick="switchTab('assistente')" id="tab-assistente" class="nav-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
-                    Assistente LAPSUS
-                </button>
-                <button onclick="switchTab('calendario')" id="tab-calendario" class="nav-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
-                    Calendário 2026
-                </button>
-                <button onclick="switchTab('kanban')" id="tab-kanban" class="nav-btn px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition-all">
-                    Quadro Kanban
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Conteúdo Principal -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- ABA 1: BANCO DE IDEIAS -->
-        <section id="sec-banco" class="space-y-6">
-            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                <div class="relative flex-1">
-                    <input type="text" id="search-input" oninput="filtrarPosts()" placeholder="Buscar por tema, pauta ou palavra-chave..." class="w-full pl-4 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="filter-pilar" onchange="filtrarPosts()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option value="">Todos os Pilares</option>
-                        <option value="Saúde Única">Saúde Única (One Health)</option>
-                        <option value="Ciência & SUS">Ciência & SUS</option>
-                        <option value="Autocuidado Acadêmico">Autocuidado Acadêmico</option>
-                        <option value="História & Políticas">História & Políticas Públicas</option>
-                        <option value="Mitos & Verdades">Mitos & Verdades</option>
-                    </select>
-                    <select id="filter-formato" onchange="filtrarPosts()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option value="">Todos os Formatos</option>
-                        <option value="Carrossel">Carrossel</option>
-                        <option value="Reels">Reels</option>
-                        <option value="Estático">Estático</option>
-                        <option value="Stories">Stories</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Grid de Posts -->
-            <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
-
-        <!-- ABA 2: ASSISTENTE INTELIGENTE LAPSUS (COPYWRITING) -->
-        <section id="sec-assistente" class="hidden max-w-3xl mx-auto space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900">Redator Estratégico LAPSUS</h2>
-                    <p class="text-sm text-slate-500">Escreva a sua ideia com as suas próprias palavras. O assistente transformará o seu pensamento em um post atrativo, informativo e alinhado com o marketing de saúde ética.</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">A sua ideia em palavras simples:</label>
-                        <textarea id="ideia-input" rows="4" placeholder="Ex: Eu tava pensando em falar sobre como os estudantes de psicologia ficam ansiosos nas primeiras consultas do estágio e como o SUS acolhe isso na supervisão..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Pilar Temático:</label>
-                            <select id="ideia-pilar" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="Ciência & SUS">Ciência & SUS</option>
-                                <option value="Saúde Única">Saúde Única</option>
-                                <option value="Autocuidado Acadêmico">Autocuidado Acadêmico</option>
-                                <option value="História & Políticas">História & Políticas Públicas</option>
-                                <option value="Mitos & Verdades">Mitos & Verdades</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Formato:</label>
-                            <select id="ideia-formato" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="Carrossel">Carrossel (Educativo)</option>
-                                <option value="Reels">Reels (Dinâmico/Vídeo)</option>
-                                <option value="Estático">Card Estático</option>
-                                <option value="Stories">Sequência de Stories</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Tom de Voz:</label>
-                            <select id="ideia-tom" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                                <option value="Acolhedor & Empático">Acolhedor & Empático</option>
-                                <option value="Informativo & Didático">Informativo & Didático</option>
-                                <option value="Inspirador & Acadêmico">Inspirador & Acadêmico</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button onclick="gerarPropostaCriativa()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow transition-all flex items-center justify-center gap-2">
-                        Criar Roteiro e Legenda Marcante
-                    </button>
-                </div>
-            </div>
-
-            <!-- Resultado Reformulado -->
-            <div id="resultado-assistente" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
-                <!-- Gerado via JS -->
-            </div>
-        </section>
-
-        <!-- ABA 3: CALENDÁRIO SAZONAL 2026 -->
-        <section id="sec-calendario" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h2 class="text-lg font-bold text-slate-900 mb-2">Calendário de Campanhas de Saúde (2026)</h2>
-                <p class="text-sm text-slate-500 mb-6">Mapeamento das principais datas comemorativas e campanhas em saúde pública ao longo do ano.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="calendario-grid"></div>
-            </div>
-        </section>
-
-        <!-- ABA 4: QUADRO KANBAN -->
-        <section id="sec-kanban" class="hidden space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900">Quadro de Produção de Conteúdo</h2>
-                    <p class="text-sm text-slate-500">Gerencie as etapas das publicações do perfil da LAPSUS.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-slate-100 p-4 rounded-xl space-y-3">
-                    <h3 class="font-bold text-xs uppercase tracking-wider text-slate-600 flex items-center justify-between">
-                        <span>Banco de Ideias</span>
-                        <span id="count-banco" class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full text-xs">0</span>
-                    </h3>
-                    <div id="col-banco" class="space-y-3 min-h-[300px]"></div>
-                </div>
-
-                <div class="bg-slate-100 p-4 rounded-xl space-y-3">
-                    <h3 class="font-bold text-xs uppercase tracking-wider text-amber-700 flex items-center justify-between">
-                        <span>Em Roteiro / Design</span>
-                        <span id="count-producao" class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-xs">0</span>
-                    </h3>
-                    <div id="col-producao" class="space-y-3 min-h-[300px]"></div>
-                </div>
-
-                <div class="bg-slate-100 p-4 rounded-xl space-y-3">
-                    <h3 class="font-bold text-xs uppercase tracking-wider text-blue-700 flex items-center justify-between">
-                        <span>Pronto para Postar</span>
-                        <span id="count-pronto" class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs">0</span>
-                    </h3>
-                    <div id="col-pronto" class="space-y-3 min-h-[300px]"></div>
-                </div>
-
-                <div class="bg-slate-100 p-4 rounded-xl space-y-3">
-                    <h3 class="font-bold text-xs uppercase tracking-wider text-emerald-700 flex items-center justify-between">
-                        <span>Publicado</span>
-                        <span id="count-publicado" class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-xs">0</span>
-                    </h3>
-                    <div id="col-publicado" class="space-y-3 min-h-[300px]"></div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Modal de Detalhes -->
-    <div id="modal-post" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white max-w-2xl w-full rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
-                <div>
-                    <span id="modal-pilar" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Pilar</span>
-                    <h3 id="modal-titulo" class="text-lg font-bold text-slate-900 mt-2">Título do Post</h3>
-                </div>
-                <button onclick="fecharModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg">✕</button>
-            </div>
-            <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-700" id="modal-conteudo"></div>
-            <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
-                <span id="modal-formato" class="text-xs text-slate-500 font-medium">Formato</span>
-                <button onclick="adicionarAoKanban()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 shadow-sm transition-all">
-                    Adicionar ao Quadro Kanban
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script de Funcionamento -->
-    <script>
+// Banco de dados expandido (+20 opções por pilar = 105 pautas completas)
         const postsDatabase = [
+            // --- PIAR 1: CIÊNCIA & SUS ---
             {
                 id: 1,
                 titulo: "Equipes eMulti e a Atuação do Psicólogo na Atenção Básica",
@@ -219,6 +14,248 @@
                 cta: "Comente como funciona o acolhimento no posto de saúde do seu bairro!"
             },
             {
+                id: 101,
+                titulo: "Acolhimento com Classificação de Risco na Saúde Mental no SUS",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar a diferença entre triagem burocrática e acolhimento humanizado na Atenção Primária.",
+                direcaoArte: "Fluxograma estilizado em tons de azul e verde com ícones de escuta e empatia.",
+                legenda: "Acolher não é apenas triar. Na Atenção Primária, a escuta qualificada identifica vulnerabilidades antes mesmo do diagnóstico formal.",
+                hashtags: "#AcolhimentoSUS #SaudeMental #AtencaoPrimaria #LAPSUS",
+                cta: "Você sabe onde fica a UBS de referência do seu bairro?"
+            },
+            {
+                id: 102,
+                titulo: "Matriciamento em Saúde Mental: O que é e como funciona?",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Esclarecer o suporte técnico-pedagógico entre equipes de atenção básica e serviços especializados.",
+                direcaoArte: "Diagrama interativo conectando a UBS ao CAPS com setas de troca contínua.",
+                legenda: "O matriciamento garante que nenhum profissional trabalhe isolado. É a integração entre equipes especialistas e generalistas para cuidar melhor do usuário.",
+                hashtags: "#Matriciamento #CAPS #AtençãoBásica #SUS #LAPSUS",
+                cta: "Salve este post para estudar na disciplina de Saúde Coletiva!"
+            },
+            {
+                id: 103,
+                titulo: "Práticas Integrativas e Complementares (PICS) no SUS",
+                pilar: "Ciência & SUS",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Apresentar as 29 PICS oferecidas no SUS e sua relação com o bem-estar psicológico.",
+                direcaoArte: "Cortes rápidos demonstrando práticas como Auriculoterapia, Yoga e Arte-terapia no posto.",
+                legenda: "Sabia que o SUS oferece gratuitamente PICS para suporte à ansiedade e dor crônica? A ciência apoia abordagens integrais do ser humano.",
+                hashtags: "#PICS #SUS #PraticasIntegrativas #SaudeMental #LAPSUS",
+                cta: "Qual PICS você já testou ou gostaria de testar?"
+            },
+            {
+                id: 104,
+                titulo: "O Papel da Psicologia nos Núcleos de Vigilância Epidemiológica",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Demonstrar como dados epidemiológicos orientam ações coletivas de saúde mental.",
+                direcaoArte: "Gráficos limpos e modernos com dados de saúde mental populacional e mapas territoriais.",
+                legenda: "A psicologia também atua na análise de dados! Entender surtos de ansiedade ou depressão em territórios ajuda a planejar intervenções comunitárias eficazes.",
+                hashtags: "#VigilanciaEmSaude #Epidemiologia #PsicologiaSocial #LAPSUS",
+                cta: "Compartilhe este conteúdo com seus colegas de pesquisa!"
+            },
+            {
+                id: 105,
+                titulo: "Estratégia Saúde da Família (ESF) e a Visita Domiciliar",
+                pilar: "Ciência & SUS",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Mostrar o valor ético e humano de observar o contexto do paciente em sua própria residência.",
+                direcaoArte: "Vídeo no formato POV (ponto de vista) acompanhando uma equipe em visita domiciliar urbana e rural.",
+                legenda: "A visita domiciliar quebra as barreiras do consultório. Entender a realidade vivida pelo usuário faz toda a diferença no plano terapêutico.",
+                hashtags: "#ESF #VisitaDomiciliar #AtençãoPrimária #PsicologiaComunitaria #LAPSUS",
+                cta: "Já participou de uma visita domiciliar no estágio? Conte nos comentários!"
+            },
+            {
+                id: 106,
+                titulo: "O Sistema RAPS: Como se articula a Rede de Atenção Psicossocial?",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Mapear os pontos de atenção da RAPS (UBS, CAPS, Leitos de Acolhimento, Residências Terapêuticas).",
+                direcaoArte: "Mapa mental ilustrado mostrando os diferentes níveis de complexidade da rede.",
+                legenda: "A RAPS é uma rede viva! Descubra como um usuário transita entre a UBS, o CAPS e o atendimento de urgência sem perder a continuidade do cuidado.",
+                hashtags: "#RAPS #SaudeMental #SUS #RedeDeCuidado #LAPSUS",
+                cta: "Salve este mapa mental para a prova de Políticas Públicas!"
+            },
+            {
+                id: 107,
+                titulo: "Acolhimento Noturno e Emergências Psiquiátricas no CAPS III",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Desmistificar o atendimento 24 horas no CAPS III como alternativa à internação fechada.",
+                direcaoArte: "Contraste visual suave com tons de azul-noturno destacando o cuidado contínuo sem asilo.",
+                legenda: "O CAPS III funciona dia e noite para evitar internações hospitalares desnecessárias. É a garantia de cuidado em liberdade na hora da crise.",
+                hashtags: "#CAPSIII #LutaAntimanicomial #CrisePsiquica #SUS #LAPSUS",
+                cta: "Marque um estudante de saúde que precisa conhecer a estrutura do CAPS III."
+            },
+            {
+                id: 108,
+                titulo: "Redução de Danos na Atenção Básica: Princípios Éticos",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a Redução de Danos como estratégia pragmática e ética de saúde pública.",
+                direcaoArte: "Infográfico com frases de acolhimento e respeito aos direitos humanos sem julgamento de valor.",
+                legenda: "Redução de Danos é respeitar a singularidade de cada sujeito. Focamos no cuidado possível e no vínculo, sem exigências punitivas.",
+                hashtags: "#ReducaoDeDanos #SaudePublica #DireitosHumanos #LAPSUS",
+                cta: "Deixe sua opinião ética nos comentários de forma respeitosa."
+            },
+            {
+                id: 109,
+                titulo: "Atendimento Psicológico no Hospital Geral pelo SUS",
+                pilar: "Ciência & SUS",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Explicar a psicologia hospitalar no contexto das enfermarias públicas e UTIs.",
+                direcaoArte: "Fotografia estilizada com sobreposição de texto claro enfatizando humanização hospitalar.",
+                legenda: "A escuta do sofrimento físico e psíquico no leito hospitalar humaniza a internação e apoia famílias e equipes médicas.",
+                hashtags: "#PsicologiaHospitalar #HumanizaSUS #SUS #LAPSUS",
+                cta: "Quer saber mais sobre residência multiprofissional em hospital? Comente 'Sim'!"
+            },
+            {
+                id: 110,
+                titulo: "Grupos Terapêuticos e Rodas de Conversa na Unidade de Saúde",
+                pilar: "Ciência & SUS",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Incentivar a intervenção grupal como potencializadora de trocas afetivas e comunitárias.",
+                direcaoArte: "Animação ou vídeo curto mostrando cadeiras em círculo em um ambiente comunitário acolhedor.",
+                legenda: "O grupo cura pelo pertencimento! A intervenção grupal na UBS otimiza a rede e cria laços de solidariedade no bairro.",
+                hashtags: "#GruposTerapeuticos #RodasDeConversa #PsicologiaSocial #LAPSUS",
+                cta: "Compartilhe para inspirar novas rodas na sua faculdade!"
+            },
+            {
+                id: 111,
+                titulo: "O Que é o Projeto Terapêutico Singular (PTS)?",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Detalhar o passo a passo de construção de um PTS coletivo para casos complexos.",
+                direcaoArte: "Checklist interativo demonstrando: Diagnóstico, Metas, Divisão de Responsabilidades e Reavaliação.",
+                legenda: "Cada usuário é único. O PTS é uma ferramenta pactuada entre o paciente, a família e a equipe multiprofissional.",
+                hashtags: "#PTS #ProjetoTerapeuticoSingular #SaudeMental #LAPSUS",
+                cta: "Salve para aplicar nos seus estudos de caso!"
+            },
+            {
+                id: 112,
+                titulo: "Acolhimento à Crise Psicológica no SAMU 192",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar os protocolos de atendimento pré-hospitalar em saúde mental.",
+                direcaoArte: "Ilustração técnica e humanizada com foco na contenção verbal e descalonamento de conflitos.",
+                legenda: "Atender a crise no SAMU exige técnicas de descalonamento e empatia para evitar abordagens violentas.",
+                hashtags: "#SAMU192 #UrgenciaEMerpes #SaudeMental #LAPSUS",
+                cta: "Conhecia o papel do SAMU na crise psíquica? Deixe seu comentário."
+            },
+            {
+                id: 113,
+                titulo: "Conselhos de Saúde: Como Participar do Controle Social?",
+                pilar: "Ciência & SUS",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Estimular estudantes de psicologia a participarem do Conselho Municipal de Saúde.",
+                direcaoArte: "Design institucional moderno enfatizando participação cidadã e democracia.",
+                legenda: "O SUS é do povo! Participar dos Conselhos Locais de Saúde é uma forma direta de exercer cidadania e defender a saúde mental.",
+                hashtags: "#ControleSocial #ConselhoDeSaude #DemocraciaNoSUS #LAPSUS",
+                cta: "Procure saber quando ocorre a reunião do conselho do seu município!"
+            },
+            {
+                id: 114,
+                titulo: "Atuação da Psicologia nas Academias da Saúde",
+                pilar: "Ciência & SUS",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Relacionar atividade física comunitária, convivência e promoção da saúde mental.",
+                direcaoArte: "Vídeo dinâmico de práticas corporais ao ar livre em polos da Academia da Saúde do SUS.",
+                legenda: "Corpo e mente integrados no território! As Academias da Saúde estimulam hábitos saudáveis e previnem o isolamento social.",
+                hashtags: "#AcademiaDaSaude #PromocaoDaSaude #Psicologia #SUS #LAPSUS",
+                cta: "Marque um amigo para fazer atividade ao ar livre hoje!"
+            },
+            {
+                id: 115,
+                titulo: "Trabalho Infantil e Violência Sexual: O Papel da Psicologia no CREAS/SUS",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Conectar o sistema de saúde (SUS) com a assistência social (SUAS) na proteção de vulneráveis.",
+                direcaoArte: "Infográfico com cores sóbrias destacando a articulação intersetorial em rede.",
+                legenda: "Saúde e Assistência Social caminham lado a lado. O psicólogo intersetorial acolhe violações de direitos com sensibilidade.",
+                hashtags: "#Intersetorialidade #SUAS #SUS #ProtecaoSocial #LAPSUS",
+                cta: "Compartilhe este conteúdo de conscientização social."
+            },
+            {
+                id: 116,
+                titulo: "Saúde Mental da População Negra no SUS: Diretrizes Nacionais",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Discutir a Política Nacional de Saúde Integral da População Negra e os impactos do racismo estrutural.",
+                direcaoArte: "Visual forte e respeitoso com paleta calorosa e citações de teóricas negras brasileiras.",
+                legenda: "O racismo é um determinante social de saúde. Oferecer cuidado no SUS exige postura antirracista e escuta qualificada.",
+                hashtags: "#SaudeDaPopulacaoNegra #PsicologiaAntirracista #SUS #LAPSUS",
+                cta: "Salve para ler o texto completo da Política Nacional."
+            },
+            {
+                id: 117,
+                titulo: "Saúde Indígena e Etnopsicologia no DSEI/SUS",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a atuação dos Distritos Sanitários Especiais Indígenas e o respeito à cosmologia nativa.",
+                direcaoArte: "Ilustrações respeitosas inspiradas na cultura indígena brasileira e gráficos territoriais.",
+                legenda: "A psicologia na saúde indígena exige descolonização dos saberes. O cuidado deve respeitar a medicina tradicional e a cultura local.",
+                hashtags: "#SaudeIndigena #DSEI #Etnopsicologia #SUS #LAPSUS",
+                cta: "Conheça mais sobre a atuação dos profissionais de saúde nos territórios indígenas!"
+            },
+            {
+                id: 118,
+                titulo: "Teleconsulta em Saúde Mental no SUS: Avanços e Desafios",
+                pilar: "Ciência & SUS",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Analisar a expansão da telepsicologia para locais isolados via Telessaúde Brasil Redes.",
+                direcaoArte: "Visual tecnológico humanizado conectando uma tela a uma comunidade remota.",
+                legenda: "A tecnologia encurta distâncias na saúde pública! O Telessaúde leva apoio especialista para áreas de difícil acesso.",
+                hashtags: "#Telessaude #Telepsicologia #InovacaoNoSUS #LAPSUS",
+                cta: "Qual sua opinião sobre o atendimento online no SUS?"
+            },
+            {
+                id: 119,
+                titulo: "Serviços de Acolhimento Residencial Terapêutico (SRT)",
+                pilar: "Ciência & SUS",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar como as moradias inseridas na comunidade reinserem egressos de longas internações psiquiátricas.",
+                direcaoArte: "Fotografias calorosas que remetem ao aconchego de um lar e à reconstrução da autonomia.",
+                legenda: "Morar é um direito! As Residências Terapêuticas devolvem a dignidade e a vida em cidade aos egressos dos antigos manicômios.",
+                hashtags: "#ResidenciaTerapeutica #Desinstitucionalizacao #LutaAntimanicomial #LAPSUS",
+                cta: "Apoie o cuidado em liberdade! Compartilhe este post."
+            },
+            {
+                id: 120,
+                titulo: "A Inserção do Psicólogo nas Unidades de Pronot Atendimento (UPA 24h)",
+                pilar: "Ciência & SUS",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Abordar a intervenção breve e o acolhimento emergencial em momentos de angústia aguda.",
+                direcaoArte: "Roteiro dinâmico focado em intervenções breves e encaminhamento responsável na UPA.",
+                legenda: "Na UPA, o tempo é curto e a angústia é intensa. A psicologia atua estabilizando o sujeito e articulando o encaminhamento para a RAPS.",
+                hashtags: "#UPA24h #UrgenciaPsiquica #PsicologiaEmergencista #LAPSUS",
+                cta: "Marque quem quer seguir carreira em urgência e emergência!"
+            },
+
+            // --- PILAR 2: SAÚDE ÚNICA (ONE HEALTH) ---
+            {
                 id: 2,
                 titulo: "Saúde Única (One Health): O que a Psicologia tem a ver com isso?",
                 pilar: "Saúde Única",
@@ -230,6 +267,248 @@
                 hashtags: "#SaudeUnica #OneHealth #PsicologiaAmbiental #SaudePublica #LAPSUS",
                 cta: "Salve este post para estudar no próximo simpósio!"
             },
+            {
+                id: 201,
+                titulo: "Ecoansiedade: O Impacto Psicológico das Crises Climáticas",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Conceituar a ansiedade gerada pela percepção do colapso ambiental e formas de enfrentamento.",
+                direcaoArte: "Tons terrosos e verdes com tipografia limpa mostrando o equilíbrio entre preocupação e ação comunitária.",
+                legenda: "Sentir angústia diante das notícias ambientais tem nome: Ecoansiedade. Como transformar esse sentimento em engajamento sustentável?",
+                hashtags: "#Ecoansiedade #MudancasClimaticas #SaudeUnica #LAPSUS",
+                cta: "Você já sentiu ansiedade por conta das mudanças do clima?"
+            },
+            {
+                id: 202,
+                titulo: "Zoonoses e Saúde Mental: O Papel das Zoonoses nas Comunidades",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Analisar os impactos emocionais de surtos de zoonoses (Dengue, Raiva, Leishmaniose) em territórios vulneráveis.",
+                direcaoArte: "Ilustrações educativas e mapas conceituais ligando o ambiente urbano à saúde coletiva.",
+                legenda: "Combater vetores também é cuidar da saúde mental. A incerteza diante de surtos epidemiológicos afeta o cotidiano das famílias.",
+                hashtags: "#Zoonoses #VigilanciaAmbiental #SaudeUnica #LAPSUS",
+                cta: "Salve para revisar na aula de Saúde Ambiental!"
+            },
+            {
+                id: 203,
+                titulo: "O Luto Pela Perda de Animais de Estimação na Perspectiva Ética",
+                pilar: "Saúde Única",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Validar o luto por animais não humanos como um sentimento legítimo na clínica e na saúde coletiva.",
+                direcaoArte: "Cenas afetivas em vídeo com animais de estimação e frases de acolhimento interpessoal.",
+                legenda: "A dor da perda de um pet não deve ser minimizada. Animais são parte da configuração familiar contemporânea.",
+                hashtags: "#LutoPet #VencendoOPreconceito #SaudeUnica #LAPSUS",
+                cta: "Envie um abraço nos comentários para quem está passando por esse luto."
+            },
+            {
+                id: 204,
+                titulo: "Terapia Assistida por Animais (TAA) no Âmbito Público",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar evidências científicas do uso de cães e cavalos como co-terapeutas no SUS.",
+                direcaoArte: "Fotos reais de intervenções assistidas por cães em hospitais e centros de convivência.",
+                legenda: "O afeto animal como aliado terapêutico. A TAA reduz o estresse na internação e estimula o vínculo comunicativo.",
+                hashtags: "#TAA #TerapiaAssistidaPorAnimais #SaudeUnica #LAPSUS",
+                cta: "Marque alguém que ama animais e psicologia!"
+            },
+            {
+                id: 205,
+                titulo: "Acesso à Água Potável e Dignidade Humana: Visão da Psicologia Ambiental",
+                pilar: "Saúde Única",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Relacionar o saneamento básico à preservação da saúde mental em comunidades desassistidas.",
+                direcaoArte: "Design em tons de azul e branco destacando estatísticas de saneamento no Brasil.",
+                legenda: "Sem água potável e esgoto tratado não há saúde mental possível. O saneamento é o primeiro passo para a dignidade subjetiva.",
+                hashtags: "#SaneamentoBasico #PsicologiaAmbiental #DireitosHumanos #LAPSUS",
+                cta: "Compartilhe este alerta social!"
+            },
+            {
+                id: 206,
+                titulo: "Uso Excessivo de Agrotóxicos e Transtornos Neuropsiquiátricos",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Trazer evidências sobre a exposição química no campo e depressão em trabalhadores rurais.",
+                direcaoArte: "Infográfico explicativo contrastando a agricultura familiar saudável com o impacto de venenos.",
+                legenda: "A saúde do trabalhador rural importa! Estudos apontam a correlação entre contaminação por agrotóxicos e sintomas depressivos graves.",
+                hashtags: "#Agrotoxicos #SaudeDoTrabalhador #SaudeRural #LAPSUS",
+                cta: "Salve para acompanhar as pesquisas nessa área."
+            },
+            {
+                id: 207,
+                titulo: "Banho de Floresta (Shinrin-Yoku) e Redução do Cortisol",
+                pilar: "Saúde Única",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Explicar a prática japonesa de imersão na natureza e seus benefícios fisiológicos e psíquicos.",
+                direcaoArte: "Vídeo relaxante com sons de pássaros e folhagens com texto explicativo na tela.",
+                legenda: "Estar em contato com áreas verdes reduz a pressão arterial e a ruminação mental. A natureza é nosso espaço vital.",
+                hashtags: "#ShinrinYoku #BanhoDeFloresta #PsicologiaAmbiental #LAPSUS",
+                cta: "Quando foi a última vez que você pisou na grama?"
+            },
+            {
+                id: 208,
+                titulo: "Hortas Comunitárias nas Unidades de Saúde: Terapia e Alimentação",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Leve",
+                objetivo: "Mostrar o impacto positivo de hortas plantadas por usuários e profissionais de saúde no posto.",
+                direcaoArte: "Fotos coloridas de plantio, verduras e sorrisos em mutirões de comunitários.",
+                legenda: "Mão na terra, mente em paz! As hortas comunitárias na UBS promovem segurança alimentar e convivência comunitária.",
+                hashtags: "#HortasComunitarias #PromocaoDaSaude #SUS #SaudeUnica #LAPSUS",
+                cta: "Sua UBS tem horta comunitária? Conta para a gente!"
+            },
+            {
+                id: 209,
+                titulo: "Desastres Ambientais e Primeiros Socorros Psicológicos (PSP)",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Capacitar a comunidade na aplicação de PSP após enchentes ou deslizamentos.",
+                direcaoArte: "Guia passo a passo com ícones objetivos: Observar, Escutar, Conectar.",
+                legenda: "Saber agir na emergência salva vidas. Os Primeiros Socorros Psicológicos apoiam vítimas de desastres sem patologizar a dor imediata.",
+                hashtags: "#DesastresAmbientais #PSP #PrimeirosSocorrosPsicologicos #LAPSUS",
+                cta: "Salve este guia preventivo importantíssimo!"
+            },
+            {
+                id: 210,
+                titulo: "Acumulação Compulsiva de Animais: Abordagem Multiprofissional",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Discutir a acumulação de animais sob o olhar da vigilância sanitária, zoonoses e psicologia.",
+                direcaoArte: "Infográfico explicativo sem sensacionalismo, focado na dignidade humana e no bem-estar animal.",
+                legenda: "A acumulação de animais não é desleixo, é um transtorno complexo. O manejo exige parceria entre saúde mental e medicina veterinária.",
+                hashtags: "#AcumulacaoDeAnimais #Zoonoses #SaudePublica #LAPSUS",
+                cta: "Compartilhe este conteúdo didático sobre o tema!"
+            },
+            {
+                id: 211,
+                titulo: "Arquitetura das Cidades e Saúde Mental Urbana",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Analisar como calçadas, iluminação e praças públicas influenciam a sensação de segurança e ansiedade.",
+                direcaoArte: "Ilustrações de paisagismo urbano comparando cidades cinzas com ambientes integrados com vegetação.",
+                legenda: "Cidades cinzas geram mentes exaustas. O urbanismo sustentável é um aliado indispensável na prevenção de transtornos psíquicos.",
+                hashtags: "#PsicologiaAmbiental #Urbanismo #SaudeMentalUrbana #LAPSUS",
+                cta: "O seu bairro tem praças públicas bem conservadas?"
+            },
+            {
+                id: 212,
+                titulo: "A Síndrome do Edifício Doente e o Trabalho Presencial",
+                pilar: "Saúde Única",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Discutir o impacto de ambientes fechados sem luz natural na produtividade e estresse laboral.",
+                direcaoArte: "Ilustração moderna de escritório sem janelas contrastando com ambiente ventilado.",
+                legenda: "Luz natural e ar renovado não são luxo, são necessidades biológicas. Ambientes corporativos doentes afetam a saúde dos trabalhadores.",
+                hashtags: "#SaudeDoTrabalhador #AmbienteSustentavel #SaudeUnica #LAPSUS",
+                cta: "Sua sala de aula ou trabalho tem boa iluminação natural?"
+            },
+            {
+                id: 213,
+                titulo: "Resíduos Sólidos e a Saúde Psicológica dos Catadores de Recicláveis",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Valorizar o trabalho dos catadores e discutir o estigma social e os riscos de contaminação.",
+                direcaoArte: "Fotos respeitosas de cooperativas de reciclagem com paleta calorosa de valorização humana.",
+                legenda: "Os catadores são agentes fundamentais da Saúde Única! Reconhecer seu papel ambiental é combater a invisibilidade social.",
+                hashtags: "#Reciclagem #CatadoresDeRecicláveis #JusticaAmbiental #LAPSUS",
+                cta: "Você faz a separação do lixo reciclável na sua casa?"
+            },
+            {
+                id: 214,
+                titulo: "Poluição Sonora e Estresse Crônico nas Metrópoles",
+                pilar: "Saúde Única",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Alertar para os efeitos insidiosos do ruído contínuo no sistema nervoso e no sono.",
+                direcaoArte: "Animação gráfica com ondas sonoras intensas diminuindo ao entrar em um parque silencioso.",
+                legenda: "O barulho excessivo mantém o corpo em permanente estado de alerta. O silêncio e os sons da natureza são terapêuticos.",
+                hashtags: "#PoluicaoSonora #Estresse #SaudeMental #LAPSUS",
+                cta: "Marque quem ama usar fones de ouvido com cancelamento de ruído!"
+            },
+            {
+                id: 215,
+                titulo: "Ilhas de Calor e Irritabilidade na População Urbana",
+                pilar: "Saúde Única",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Conectar temperaturas extremas em áreas asfaltadas ao aumento da agressividade e estresse.",
+                direcaoArte: "Mapa de calor colorido contrastando áreas arborizadas com asfaltadas.",
+                legenda: "O calor extremo afeta nossa paciência e nosso bem-estar físico. Arborizar as cidades é uma estratégia urgente de saúde pública.",
+                hashtags: "#IlhasDeCalor #MudancasClimaticas #SaudePublica #LAPSUS",
+                cta: "Plantou uma árvore recentemente? Conte sua experiência!"
+            },
+            {
+                id: 216,
+                titulo: "Consumo Consciente e Minimalismo: Benefícios Psicológicos",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Leve",
+                objetivo: "Questionar o consumismo desenfreado como válvula de escape para o vazio existencial.",
+                direcaoArte: "Visual minimalista em tons pastéis com frases curtas de reflexão sobre essencialismo.",
+                legenda: "Ter mais não significa ser mais feliz. Reduzir o consumo desnecessário alivia a pressão financeira e ajuda o planeta.",
+                hashtags: "#Minimalismo #ConsumoConsciente #SaudeFinanceira #LAPSUS",
+                cta: "Reflita: o que você comprou esse mês por impulso?"
+            },
+            {
+                id: 217,
+                titulo: "Cuidado com os Animais Silvestres e Prevenção de Pandemias",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar como o tráfico de animais silvestres e o desmatamento geram novas ameaças pandêmicas.",
+                direcaoArte: "Ilustrações de fauna brasileira protegida em seu habitat natural.",
+                legenda: "Proteger a fauna é proteger a humanidade. A degradação dos habitats aproxima vírus silvestres das cidades.",
+                hashtags: "#FaunaSilvestre #PrevencaoDePandemias #SaudeUnica #LAPSUS",
+                cta: "Diga não ao tráfico de animais silvestres! Compartilhe."
+            },
+            {
+                id: 218,
+                titulo: "A Influência do Clima nas Flutuações do Humor (Transtorno Afetivo Sazonal)",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar a influência da luminosidade solar na produção de melatonina e serotonina.",
+                direcaoArte: "Gráfico explicativo relacionando estações do ano, exposição solar e regulação do humor.",
+                legenda: "A falta de luz solar pode afetar diretamente nossa disposição diária. Entenda a neurobiologia do Transtorno Afetivo Sazonal.",
+                hashtags: "#TranstornoSazonal #Neurociencia #SaudeUnica #LAPSUS",
+                cta: "Como está seu banho de sol diário? Salve a dica!"
+            },
+            {
+                id: 219,
+                titulo: "Segurança Alimentar, Agrobiodiversidade e Nutrição Psíquica",
+                pilar: "Saúde Única",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Conectar a ingestão de alimentos ultraprocessados ao aumento da ansiedade e inflamação sistêmica.",
+                direcaoArte: "Comparativo ilustrado entre comida de verdade (feira) e ultraprocessados.",
+                legenda: "Seu intestino é seu segundo cérebro! Nutrir o corpo com alimentos reais de base agroecológica fortalece a saúde mental.",
+                hashtags: "#EixoIntestinoCérebro #AlimentacaoSaudavel #Agroecologia #LAPSUS",
+                cta: "Marque seu amigo que precisa ir à feira livre esta semana!"
+            },
+            {
+                id: 220,
+                titulo: "Lixo Eletrônico: O Descarte Correto e os Riscos de Contaminação por Metais Pesados",
+                pilar: "Saúde Única",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Conscientizar estudantes sobre o descarte responsável de celulares e baterias antigas.",
+                direcaoArte: "Design em tons de cinza e verde vibrante chamando atenção para pontos de coleta.",
+                legenda: "Onde vai parar seu celular antigo? O descarte incorreto libera chumbo e mercúrio no solo, contaminando os lençóis freáticos.",
+                hashtags: "#LixoEletronico #Sustentabilidade #SaudeAmbiental #LAPSUS",
+                cta: "Procure o ponto de descarte de e-lixo mais próximo na sua universidade!"
+            },
+
+            // --- PILAR 3: AUTOCUIDADO ACADÊMICO ---
             {
                 id: 3,
                 titulo: "Higiene do Sono e Rotina Acadêmica Sem Exaustão",
@@ -243,6 +522,248 @@
                 cta: "Marque aquele colega que vive virando a noite estudando!"
             },
             {
+                id: 301,
+                titulo: "A Síndrome do Impostor na Graduação em Psicologia",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Acolher o sentimento frequente de inadequação entre estudantes em início de estágio.",
+                direcaoArte: "Ilustrações de pensamentos intrusivos sendo desconstruídos por frases de apoio profissional.",
+                legenda: "'Será que sei o suficiente para atender?' Essa dúvida assombra muitos acadêmicos. Entenda que o aprendizado é um processo contínuo.",
+                hashtags: "#SindromeDoImpostor #VidaDeEstudante #Psicologia #LAPSUS",
+                cta: "Você já sentiu que não sabia o suficiente? Comente com um ❤️"
+            },
+            {
+                id: 302,
+                titulo: "Técnica Pomodoro Adaptada para Leituras Densas",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Ensinar um método prático de divisão de tempo de estudo para evitar fadiga mental.",
+                direcaoArte: "Vídeo dinâmico mostrando a marcação de tempo (25 min foco / 5 min pausa) com livros de psicologia.",
+                legenda: "Ler artigos científicos longos exige intervalos estruturados. A Técnica Pomodoro protege sua concentração contra o esgotamento.",
+                hashtags: "#TecnicaPomodoro #DicasDeEstudo #Foco #LAPSUS",
+                cta: "Salve para testar na sua próxima sessão de estudos!"
+            },
+            {
+                id: 303,
+                titulo: "Como Elaborar um Cronograma de Estudos Realista",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Leve",
+                objetivo: "Ajudar acadêmicos a organizar seus horários considerando pausas, lazer e imprevistos.",
+                direcaoArte: "Templates coloridos de agendas semanais com blocos de descanso destacados em verde.",
+                legenda: "Seu cronograma inclui tempo de descanso? Um planejamento que ignora a vida pessoal está fadado ao abandono.",
+                hashtags: "#Organizacao #PlanejamentoEstudantil #Autocuidado #LAPSUS",
+                cta: "Marque a dupla que estuda com você para montar a agenda da semana."
+            },
+            {
+                id: 304,
+                titulo: "Gerenciamento do Estresse Pré-Provas e Apresentações",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar exercícios respiratórios (como a respiração diafragmática) para regulação do sistema nervoso.",
+                direcaoArte: "Animação suave indicando o tempo de inspirar (4s), reter (4s) e expirar (6s).",
+                legenda: "Branco na hora da prova? A ansiedade elevada trava nosso resgate de memória. Aprenda a regular seu corpo antes do teste.",
+                hashtags: "#AnsiedadeDeProvis #RegulacaoEmocional #Respiracao #LAPSUS",
+                cta: "Pratique essa respiração agora mesmo e sinta a diferença!"
+            },
+            {
+                id: 305,
+                titulo: "O Limite Entre a Dedicação Acadêmica e o Burnout Estudantil",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Alertar para os sinais fisiológicos e emocionais da exaustão crônica no ambiente universitário.",
+                direcaoArte: "Sinais visuais de alerta (bateria descarregando) com orientações claras de apoio psicológico na instituição.",
+                legenda: "Sua saúde física e mental vale mais do que qualquer nota 10. Aprenda a reconhecer os sinais de exaustão e peça ajuda a tempo.",
+                hashtags: "#BurnoutEstudantil #SaudeMentalNaFaculdade #Autocuidado #LAPSUS",
+                cta: "Compartilhe esse abraço em formato de post no seu grupo da turma."
+            },
+            {
+                id: 306,
+                titulo: "Comparação Social nas Redes e o Impacto na Vida Acadêmica",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Lembrar que as redes sociais mostram apenas os recortes perfeitos da trajetória dos colegas.",
+                direcaoArte: "Frase marcante em tipografia elegante: 'Não compare bastidores com o palco dos outros'.",
+                legenda: "Ninguém posta suas notas baixas ou as noites mal dormidas. Foque no seu próprio processo sem se comparar com o feed alheio.",
+                hashtags: "#SaudeDigital #ComparaçaoSocial #Autocuidado #LAPSUS",
+                cta: "Lembrete do dia: você está no seu próprio tempo!"
+            },
+            {
+                id: 307,
+                titulo: "A Importância das Pausas Ativas Durante a Produção do TCC",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Incentivar alongamentos curtos e caminhadas rápidas para aliviar dores musculares ao digitar.",
+                direcaoArte: "Estudante se alongando ao lado do computador com sorriso de alívio.",
+                legenda: "Escrevendo o TCC? Lembre-se de levantar a cada 1 hora para alongar a coluna e beber água. Seu corpo agradece!",
+                hashtags: "#TCC #PausaAtiva #Ergonomia #VidaAcademica #LAPSUS",
+                cta: "Envie este Reels para quem está no sufoco do TCC!"
+            },
+            {
+                id: 308,
+                titulo: "Estabelecendo Limites: Como Dizer 'Não' a Projetos Extraordinários",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Ajudar o estudante a selecionar oportunidades de monitoria e pesquisa sem sobrecarregar a rotina.",
+                direcaoArte: "Guia ilustrado com opções de respostas assertivas para recusar convites com educação e firmeza.",
+                legenda: "Dizer sim a tudo é dizer não à sua saúde mental. Escolha os projetos que realmente fazem sentido para seu objetivo profissional.",
+                hashtags: "#Assertividade #Limites #SaudeMental #LAPSUS",
+                cta: "Salve esse guia com frases para praticar a assertividade!"
+            },
+            {
+                id: 309,
+                titulo: "Alimentação e Concentração: O que Comer Durante a Semana de Provas",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Leve",
+                objetivo: "Dar dicas de lanches práticos e nutritivos que mantêm a glicose estável no cérebro.",
+                direcaoArte: "Fotos de marmitas e lanches coloridos (castanhas, frutas, água) em ambientes de estudo.",
+                legenda: "Substitua o excesso de energético por alimentos que nutrem de verdade. O cérebro precisa de combustível de qualidade para funcionar bem.",
+                hashtags: "#NutricaoECérebro #FocoNosEstudos #VidaDeEstudante #LAPSUS",
+                cta: "Qual seu lanche favorito na hora de estudar?"
+            },
+            {
+                id: 310,
+                titulo: "O Valor dos Grupos de Estudo Solidários vs. Competitividade",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Incentivar o aprendizado cooperativo e o compartilhamento de resumos entre colegas.",
+                direcaoArte: "Ilustração de alunos dividindo anotações e comemorando resultados juntos.",
+                legenda: "A graduação não é uma competição individual. Construir uma rede de apoio torna a jornada mais leve e enriquecedora.",
+                hashtags: "#EstudoEmGrupo #SolidariedadeAcademica #JuntosSomosMaisFortes #LAPSUS",
+                cta: "Marque seu grupo de estudos oficial da faculdade!"
+            },
+            {
+                id: 311,
+                titulo: "Supervisão de Estágio: Como Aproveitar Sem Medo de Errar",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Orientar o estagiário a ver o supervisor como um facilitador do aprendizado, não um julgador.",
+                direcaoArte: "Desenhos conceituais mostrando a supervisão como um guarda-chuva protetor no aprendizado.",
+                legenda: "Errar no estágio com supervisão é parte do processo de formação. Leve suas dúvidas sem vergonha para a mesa de discussão.",
+                hashtags: "#EstagioEmPsicologia #SupervisaoClinica #FormacaoProissional #LAPSUS",
+                cta: "Já preparou o caso para sua próxima supervisão?"
+            },
+            {
+                id: 312,
+                titulo: "Como Lidar com o Luto e Perdas Pessoais Durante o Semestre",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Orientar sobre trancamento parcial, diálogo com professores e busca do serviço de apoio estudantil.",
+                direcaoArte: "Design acolhedor com cores suaves e informações institucionais sobre direitos dos estudantes.",
+                legenda: "Passar por momentos difíceis durante a faculdade exige flexibilidade. Saiba que existem mecanismos acadêmicos para amparar seu momento.",
+                hashtags: "#ApoioEstudantil #LutoNaFaculdade #Empatia #LAPSUS",
+                cta: "Procure o núcleo de apoio psicológico ao estudante da sua instituição."
+            },
+            {
+                id: 313,
+                titulo: "Organizando a Biblioteca Virtual de Artigos sem Virar Caos",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Apresentar organizadores de referências gratuitos (como Mendeley e Zotero).",
+                direcaoArte: "Demonstração na tela de um computador organizando PDFs em pastas por temática.",
+                legenda: "Chega de dezenas de PDFs soltos com nomes estranhos no seu computador! Use gerenciadores de referências para economizar tempo.",
+                hashtags: "#Zotero #Mendeley #PesquisaCientifica #DicasAcademicas #LAPSUS",
+                cta: "Salve para organizar seus artigos no final de semana!"
+            },
+            {
+                id: 314,
+                titulo: "A Importância do Lazer e do Ócio Criativo nos Finais de Semana",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Desmitificar a culpa por não estudar aos domingos e destacar o valor do descanso para a criatividade.",
+                direcaoArte: "Ilustração relaxante de alguém ouvindo música ou passeando ao ar livre.",
+                legenda: "Descansar não é perda de tempo, é manutenção do seu cérebro. Permita-se ter momentos totalmente desconectados dos livros.",
+                hashtags: "#OcioCriativo #Lazer #DescansoMerecido #LAPSUS",
+                cta: "O que você vai fazer de divertido neste final de semana?"
+            },
+            {
+                id: 315,
+                titulo: "Cuidando do Corpo: Ergonomia para Quem Passa Horas Estudando",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Leve",
+                objetivo: "Mostrar posições corretas de postura na cadeira, altura do monitor e apoio para os pés.",
+                direcaoArte: "Infográfico explicativo indicando ângulos corretos de joelho, lombar e pescoço.",
+                legenda: "Dor nas costas e no pescoço atrapalha os estudos. Pequenos ajustes na sua cadeira evitam lesões crônicas no futuro.",
+                hashtags: "#Ergonomia #PosturaCorreta #SaudeFisica #LAPSUS",
+                cta: "Ajuste sua postura na cadeira agora mesmo enquanto lê este post!"
+            },
+            {
+                id: 316,
+                titulo: "Como Lidar com o 'Overload' de Informações e Notícias",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Ensinar a fazer um 'detox digital' selecional para proteger a saúde mental de sobrecarga informativa.",
+                direcaoArte: "Design minimalista com ícones de notificações sendo silenciadas.",
+                legenda: "Você não precisa consumir todos os conteúdos sobre psicologia ao mesmo tempo. Filtre suas fontes e preserve sua paz mental.",
+                hashtags: "#DetoxDigital #SobrecargaInformativa #Foco #LAPSUS",
+                cta: "Desative as notificações desnecessárias do seu celular por 1 dia!"
+            },
+            {
+                id: 317,
+                titulo: "Atividade Física como Aliada no Alívio do Estresse Universitário",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Mostrar que caminhadas curtas ou dança liberam endorfina e melhoram a disposição diária.",
+                direcaoArte: "Montagem de vídeos de estudantes praticando diferentes esportes leves.",
+                legenda: "Movimentar o corpo reduz o excesso de cortisol acumulado durante as aulas. Encontre um exercício que te dê prazer!",
+                hashtags: "#AtividadeFisica #Endorfina #SaudeIntegral #LAPSUS",
+                cta: "Qual seu exercício físico favorito para espairecer?"
+            },
+            {
+                id: 318,
+                titulo: "Primeira Consulta Pessoal com Psicólogo: Quebrando o Tabu do Estudante",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Incentivar estudantes de psicologia a fazerem sua própria psicoterapia pessoal sem vergonha.",
+                direcaoArte: "Design acolhedor abordando a terapia do psicólogo como pilar essencial da formação.",
+                legenda: "Quem cuida da mente também precisa de cuidado. Fazer terapia pessoal é o melhor investimento para sua futura prática clínica.",
+                hashtags: "#Therapy #Psicologia #CuidarDeSi #FormacaoAcademica #LAPSUS",
+                cta: "Você já faz terapia pessoal? Conte sua experiência!"
+            },
+            {
+                id: 319,
+                titulo: "Lidando com a Frustração de uma Nota Baixa ou Trabalho Recusado",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Ajudar o estudante a ressignificar falhas pontuais como feedback construtivo de aprendizado.",
+                direcaoArte: "Fluxograma de ressignificação: 'Feedback' em vez de 'Fracasso'.",
+                legenda: "Uma nota não define sua inteligência nem seu futuro profissional. Use os correções dos professores para aprimorar seu conhecimento.",
+                hashtags: "#ResilienciaAcademica #CrescimentoPessoal #Mindset #LAPSUS",
+                cta: "Guarde esse lembrete para os dias mais difíceis do semestre!"
+            },
+            {
+                id: 320,
+                titulo: "Celebrando Pequenas Conquistas: O Valor de Finalizar Cada Semestre",
+                pilar: "Autocuidado Acadêmico",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Estimular o ritual de fechamento de etapas acadêmicas com orgulho e auto-reconhecimento.",
+                direcaoArte: "Visual festivo e acolhedor em tons de dourado e verde com convite à celebração coletiva.",
+                legenda: "Mais um semestre concluído! Reconheça seu esforço e celebre cada passo dado na sua formação profissional.",
+                hashtags: "#ConquistaEstudantil #OrgulhoAcademico #FimDeSemestre #LAPSUS",
+                cta: "Comente aqui qual matéria você mais se orgulhou de passar este ano!"
+            },
+
+            // --- PILAR 4: HISTÓRIA & POLÍTICAS PÚBLICAS ---
+            {
                 id: 4,
                 titulo: "Linha do Tempo: Da Reforma Psiquiátrica à Luta Antimanicomial",
                 pilar: "História & Políticas",
@@ -255,6 +776,248 @@
                 cta: "Compartilhe para fortalecer a memória da nossa luta!"
             },
             {
+                id: 401,
+                titulo: "Nise da Silveira e a Revolução pelo Afeto e pela Arte",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Homenegear a pioneira no tratamento humanizado da esquizofrenia através da expressão artística.",
+                direcaoArte: "Imagens históricas do Museu de Imagens do Inconsciente e obras dos clientes de Nise.",
+                legenda: "Nise recriou o cuidado em saúde mental no Brasil recusando métodos violentos. A arte e o afeto com animais foram suas maiores ferramentas.",
+                hashtags: "#NiseDaSilveira #Inconsciente #ArteTerapia #LutaAntimanicomial #LAPSUS",
+                cta: "Comente qual frase de Nise da Silveira mais te inspira!"
+            },
+            {
+                id: 402,
+                titulo: "A Carta de Bauru (1987): O Marco Inicial da Luta Antimanicomial",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar a importância do Encontro dos Trabalhadores da Saúde Mental em Bauru.",
+                direcaoArte: "Design em estilo jornal antigo destacando o lema famoso: 'Por uma sociedade sem manicômios'.",
+                legenda: "Em 1987, trabalhadores e usuários gritaram ao Brasil que trancar não é tratar. Conheça a declaração histórica da Carta de Bauru.",
+                hashtags: "#CartaDeBauru #ReformaPsiquiatrica #SociedadeSemManicomicat #LAPSUS",
+                cta: "Salve este post histórico para seus seminários de políticas públicas!"
+            },
+            {
+                id: 403,
+                titulo: "O Holocausto Brasileiro: A Tragédia do Hospital Colônia de Barbacena",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Denunciar os horrores vividos no hospital psiquiátrico de Barbacena para garantir que nunca mais se repita.",
+                direcaoArte: "Fotografias históricas em preto e branco com citações do livro de Daniela Arbex.",
+                legenda: "60 mil mortes silenciadas. Lembrar das atrocidades de Barbacena é um dever ético para que manicômios nunca mais existam no Brasil.",
+                hashtags: "#HolocaustoBrasileiro #Barbacena #MemoriaEVerdade #LAPSUS",
+                cta: "Compartilhe para que a memória histórica não seja apagada."
+            },
+            {
+                id: 404,
+                titulo: "Lei 10.216/2001: A Lei da Reforma Psiquiátrica Brasileira",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Analisar os artigos principais da lei que redirecionou o modelo assistencial em saúde mental.",
+                direcaoArte: "Infográfico jurídico-educativo destacando direitos dos usuários de serviços de saúde mental.",
+                legenda: "Após 12 anos de tramitação no Congresso, a Lei 10.216 garantiu os direitos das pessoas com transtornos mentais no Brasil.",
+                hashtags: "#Lei10216 #DireitosHumanos #ReformaPsiquiatrica #SUS #LAPSUS",
+                cta: "Salve este conteúdo jurídico fundamental para a prática profissional!"
+            },
+            {
+                id: 405,
+                titulo: "Franco Basaglia e a Experiência de Desinstitucionalização em Trieste",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a influência da psiquiatria democrática italiana na reforma psiquiátrica brasileira.",
+                direcaoArte: "Fotos históricas de Trieste (Itália) durante a libertação dos pacientes dos asilos.",
+                legenda: "'A loucura é uma condição humana'. Conheça como a experiência de Basaglia na Itália inspirou o modelo brasileiro de CAPS.",
+                hashtags: "#FrancoBasaglia #PsiquiatriaDemocratica #Desinstitucionalizacao #LAPSUS",
+                cta: "Você conhecia a origem italiana da nossa reforma psiquiátrica?"
+            },
+            {
+                id: 406,
+                titulo: "Criação do SUS na Constituição de 1988: 'Saúde é Direito de Todos'",
+                pilar: "História & Políticas",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Destacar o Artigo 196 da Constituição Federal como marco da saúde pública universal.",
+                direcaoArte: "Design em verde e amarelo com o texto constitucional em destaque tipográfico.",
+                legenda: "Antes de 1988, só tinha direito à saúde quem pagava a previdência. O SUS nasceu da luta popular pela democracia!",
+                hashtags: "#Constituicao88 #Artigo196 #SUS #SaudeEDireito #LAPSUS",
+                cta: "Defenda o SUS! Compartilhe este post nos seus Stories."
+            },
+            {
+                id: 407,
+                titulo: "A 8ª Conferência Nacional de Saúde (1986): O Povo Decidindo a Saúde",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar o evento histórico em que a sociedade civil desenhou os pilares do futuro SUS.",
+                direcaoArte: "Fotos históricas do plenário lotado por cidadãos, trabalhadores e estudantes em 1986.",
+                legenda: "Pela primeira vez na história, a população participou diretamente da construção da política pública de saúde no Brasil.",
+                hashtags: "#8ConferenciaDeSaude #HistoriaDoSUS #ControleSocial #LAPSUS",
+                cta: "Salve para estudar a história do movimento sanitário!"
+            },
+            {
+                id: 408,
+                titulo: "Juliano Moreira: O Pioneiro Negro da Psiquiatria Humanizada no Brasil",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Resgatar a história do médico baiano que combateu a tese racista de frenologia na saúde mental.",
+                direcaoArte: "Retrato respeitoso de Juliano Moreira com elementos históricos do início do século XX.",
+                legenda: "Juliano Moreira revolucionou a psiquiatria no Brasil provando que doença mental não tinha relação com raça. Um gigante da nossa história!",
+                hashtags: "#JulianoMoreira #HistoriaDaPsicologia #PsiquiatriaHumanizada #LAPSUS",
+                cta: "Orgulho da história baiana na saúde! Compartilhe."
+            },
+            {
+                id: 409,
+                titulo: "Decreto 7.508/2011: As Regiões de Saúde e a Organização do SUS",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar o funcionamento dos Contratos Organizativos de Ação Pública da Saúde entre municípios.",
+                direcaoArte: "Infográfico explicativo em mapa regional mostrando o fluxo entre municípios vizinhos.",
+                legenda: "Como os municípios dividem o cuidado em saúde? O Decreto 7.508 regulamenta a articulação regionalizada do SUS.",
+                hashtags: "#Decreto7508 #GestaoEmSaude #Regionalizacao #SUS #LAPSUS",
+                cta: "Conteúdo essencial para concursos públicos! Salve já."
+            },
+            {
+                id: 410,
+                titulo: "O Movimento Sanitário e a Redemocratização do Brasil",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Conectar a luta pela democracia política à conquista do direito à saúde na década de 1970/1980.",
+                direcaoArte: "Imagens de passeatas históricas do movimento sanitário com faixas e cartazes.",
+                legenda: "Não há saúde mental sem liberdade política. O movimento sanitário foi peça-chave na queda da ditadura militar no Brasil.",
+                hashtags: "#MovimentoSanitario #Redemocratizacao #SaudeEDemocracia #LAPSUS",
+                cta: "Curta se você apoia a democracia e a saúde pública!"
+            },
+            {
+                id: 411,
+                titulo: "A História do Código de Ética Profissional do Psicólogo no Brasil",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a evolução das diretrizes éticas da profissão desde a regulamentação em 1962.",
+                direcaoArte: "Design institucional mostrando a evolução dos livretos do Código de Ética do CFP.",
+                legenda: "A ética do psicólogo não é neutra: ela assume o compromisso com os Direitos Humanos e com a transformação social.",
+                hashtags: "#CodigoDeEtica #CFP #PsicologiaEÉtica #LAPSUS",
+                cta: "Você já leu o Código de Ética atual do Psicólogo?"
+            },
+            {
+                id: 412,
+                titulo: "A Criação dos Centros de Atenção Psicossocial (CAPS) nos Anos 90",
+                pilar: "História & Políticas",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Contar a história do primeiro CAPS no Brasil (CAPS Luiz Cerqueira em SP, 1987).",
+                direcaoArte: "Fotos do primeiro CAPS misturadas com imagens atuais de oficinas comunitárias.",
+                legenda: "O CAPS nasceu como uma experiência revolucionária para substituir o modelo hospitalocêntrico. Conheça sua origem!",
+                hashtags: "#CAPS #HistoriaDaSaudeMental #LutaAntimanicomial #LAPSUS",
+                cta: "Marque alguém que estagia ou trabalha no CAPS!"
+            },
+            {
+                id: 413,
+                titulo: "Programa De Volta Para Casa: Cidadania e Auxílio Reabilitação",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a Lei 10.708/2003 que instituiu o auxílio financeiro para egressos de longas internações.",
+                direcaoArte: "Ilustração de chaves abrindo portas para a cidade e autonomia financeira.",
+                legenda: "A reabilitação psicossocial exige suporte financeiro para a autonomia. O Programa De Volta Para Casa garante cidadania real.",
+                hashtags: "#DeVoltaParaCasa #ReabilitaçãoPsicossocial #Cidadania #LAPSUS",
+                cta: "Conhecia esse benefício do governo para egressos de manicômios?"
+            },
+            {
+                id: 414,
+                titulo: "A Psicologia Social Crítica na América Latina: Martín-Baró",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar a Psicologia da Libertação e a crítica ao modelo individualista importado.",
+                direcaoArte: "Visual de inspiração latino-americana com frases marcantes de Ignacio Martín-Baró.",
+                legenda: "Entender o sofrimento psíquico na América Latina exige olhar para a opressão e a desigualdade. Conheça a Psicologia da Libertação!",
+                hashtags: "#MartinBaro #PsicologiaDaLibertacao #PsicologiaSocial #LAPSUS",
+                cta: "Salve para ler os artigos de Psicologia Social Crítica!"
+            },
+            {
+                id: 415,
+                titulo: "Silvia Lane e o Processo de Regulamentação da Psicologia Social no Brasil",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Resgatar as contribuições de Silvia Lane e da ABRAPSO para a psicologia comunitária.",
+                direcaoArte: "Retrato histórico de Silvia Lane com citações do livro 'O que é Psicologia Social'.",
+                legenda: "'O homem é um ser histórico e social'. Silvia Lane transformou a psicologia brasileira aproximando-a da realidade das periferias.",
+                hashtags: "#SilviaLane #ABRAPSO #PsicologiaSocial #LAPSUS",
+                cta: "Compartilhe este tributo a uma das maiores pensadoras da nossa área."
+            },
+            {
+                id: 416,
+                titulo: "A Confluência entre a Assistência Social (SUAS) e o SUS",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar como as Leis Orgânicas da Saúde (8.080) e da Assistência Social (8.742) se complementam.",
+                direcaoArte: "Diagrama interativo mostrando a ponte de encaminhamentos entre CRAS, CREAS e UBS/CAPS.",
+                legenda: "Saúde e Proteção Social são políticas públicas irmãs. Aprenda como a rede intersetorial protege famílias em situação de vulnerabilidade.",
+                hashtags: "#SUS #SUAS #PoliticasPublicas #Intersetorialidade #LAPSUS",
+                cta: "Salve esse mapa de articulação intersetorial!"
+            },
+            {
+                id: 417,
+                titulo: "Declaração Universal dos Direitos Humanos e a Prática Psicológica",
+                pilar: "História & Políticas",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Reafirmar a defesa incondicional dos direitos humanos como pilar fundamental da categoria.",
+                direcaoArte: "Design moderno em tons de azul e dourado celebrando a declaração da ONU de 1948.",
+                legenda: "Não existe atuação psicológica ética sem compromisso intransigente com os Direitos Humanos universais.",
+                hashtags: "#DireitosHumanos #ONU #PsicologiaEÉtica #LAPSUS",
+                cta: "Siga a LAPSUS em defesa da dignidade de todas as pessoas!"
+            },
+            {
+                id: 418,
+                titulo: "A História do Dia do Psicólogo no Brasil (27 de Agosto de 1962)",
+                pilar: "História & Políticas",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Explicar a promulgação da Lei 4.119 que regulamentou a profissão de psicólogo no país.",
+                direcaoArte: "Vídeo festivo com documentos históricos do Diário Oficial da União de 1962.",
+                legenda: "Em 27 de agosto de 1962, nossa profissão foi oficialmente reconhecida por lei. Celebramos mais de 60 anos de história e lutas!",
+                hashtags: "#DiaDoPsicólogo #27DeAgosto #HistoriaDaProfissao #LAPSUS",
+                cta: "Marque os psicólogos e futuros psicólogos que você admira!"
+            },
+            {
+                id: 419,
+                titulo: "O Papel da Psicologia nas Conferências Nacionais de Saúde Mental",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Apresentar as deliberações da 5ª Conferência Nacional de Saúde Mental (CNSM) e seus impactos.",
+                direcaoArte: "Visual de prestação de contas públicas com destaques para propostas aprovadas pela comunidade.",
+                legenda: "As Conferências são o espaço em que a comunidade define o futuro da saúde mental no Brasil. Conheça as diretrizes mais recentes!",
+                hashtags: "#5CNSM #SaudeMental #DemocraciaParticipativa #LAPSUS",
+                cta: "Salve para acompanhar os relatórios finais da conferência."
+            },
+            {
+                id: 420,
+                titulo: "A Luta Antirracista na Construção das Políticas Públicas de Saúde",
+                pilar: "História & Políticas",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Incentivar a reflexão sobre o racismo institucional e o combate à equidade no acesso aos serviços públicos.",
+                direcaoArte: "Design em tons terrosos com citações do Conselho Federal de Psicologia sobre equidade e raça.",
+                legenda: "Promover equidade no SUS significa reconhecer as especificidades da população negra e periférica. Por uma política pública verdadeiramente inclusiva!",
+                hashtags: "#LutaAntirracista #EquidadeNoSUS #SaudePublica #LAPSUS",
+                cta: "Compartilhe este compromisso ético da nossa liga!"
+            },
+
+            // --- PILAR 5: MITOS & VERDADES ---
+            {
                 id: 5,
                 titulo: "Mito ou Verdade: Psicologia no SUS é apenas para Casos Graves?",
                 pilar: "Mitos & Verdades",
@@ -265,332 +1028,245 @@
                 legenda: "MITO! As Unidades Básicas de Saúde (UBS) e os centros comunitários realizam ações de promoção da saúde mental, prevenção e acolhimento preventivo para toda a população, não apenas casos de crise.",
                 hashtags: "#MitosEVerdades #PsicologiaSUS #PromocaoDaSaude #UniFTC #LAPSUS",
                 cta: "Você sabia dessa informação? Deixe nos comentários!"
+            },
+            {
+                id: 501,
+                titulo: "Mito ou Verdade: Terapia Psicológica Demora Anos para Fazer Efeito?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Desmistificar o tempo de processo terapêutico e apresentar intervenções breves focadas em objetivos.",
+                direcaoArte: "Card em alto contraste com selo chamativo: MITO!",
+                legenda: "MITO! Existem abordagens e intervenções breves focadas em demandas específicas que trazem resultados em poucas sessões. Cada processo é único.",
+                hashtags: "#MitosEVerdades #Psicoterapia #IntervencaoBreve #LAPSUS",
+                cta: "Envie para quem adia iniciar a terapia achando que demora anos!"
+            },
+            {
+                id: 502,
+                titulo: "Mito ou Verdade: Remedio Controlado Vicia para Sempre?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar a diferença entre dependência química e uso terapêutico acompanhado de psicotrópicos.",
+                direcaoArte: "Infográfico explicativo sobre como os psicofármacos regulam neurotransmissores no cérebro.",
+                legenda: "MITO! O tratamento medicamentoso prescrito e acompanhado por psiquiatra visa a estabilização do quadro e pode ter desmame gradual e seguro.",
+                hashtags: "#Psicofarmacos #SaudeMental #SemPreconceito #LAPSUS",
+                cta: "Salve para combater o estigma em relação à medicação psiquiátrica!"
+            },
+            {
+                id: 503,
+                titulo: "Mito ou Verdade: O Psicólogo Apenas 'Ouve' e Não Dá Palpites?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Explicar que o papel do psicólogo é a escuta técnica qualificada, intervenção e reflexão, não conselhos pessoais.",
+                direcaoArte: "Comparativo simples entre 'Conselho de Amigo' vs 'Escuta Técnica do Psicólogo'.",
+                legenda: "VERDADE! O psicólogo não dá conselhos pessoais. Ele utiliza técnicas científicas para ajudar o próprio paciente a encontrar caminhos sustentáveis.",
+                hashtags: "#EscutaQualificada #PsicologiaCientifica #MitosEVerdades #LAPSUS",
+                cta: "Comente se você já escutou a frase 'psicólogo é amigo pago'!"
+            },
+            {
+                id: 504,
+                titulo: "Mito ou Verdade: Crianças Não Sofrem de Depressão ou Ansiedade?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Conscientizar sobre os sintomas de sofrimento psíquico na infância (mudança de comportamento, regressão, agressividade).",
+                direcaoArte: "Ilustração delicada sobre saúde mental infantil e sinais de alerta para pais e educadores.",
+                legenda: "MITO! Crianças expressam sofrimento emocional através do corpo e do comportamento. A escuta infantil no SUS é fundamental.",
+                hashtags: "#SaudeMentalInfantil #Infancia #Acolhimento #SUS #LAPSUS",
+                cta: "Compartilhe este alerta com pais e professores!"
+            },
+            {
+                id: 505,
+                titulo: "Mito ou Verdade: Atendimento no CAPS é Gratuito de Verdade?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Confirmar a gratuidade 100% universal dos serviços da RAPS financiada pelos impostos públicos.",
+                direcaoArte: "Card verde-esperança com destaque: VERDADE! 100% Gratuito pelo SUS.",
+                legenda: "VERDADE! Você não paga absolutamente nada para ser atendido no CAPS. O SUS é um direito conquistado por todos os brasileiros.",
+                hashtags: "#CAPS #SUSGratuito #DireitoASaude #LAPSUS",
+                cta: "Espalhe essa notícia! O SUS é nosso."
+            },
+            {
+                id: 506,
+                titulo: "Mito ou Verdade: Quem Faz Terapia é 'Louco' ou 'Fraco'?",
+                pilar: "Mitos & Verdades",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Combater o preconceito secular contra quem busca cuidados de saúde mental.",
+                direcaoArte: "Vídeo curto desconstruindo estigmas com frases de empoderamento e autocuidado.",
+                legenda: "MITO! Buscar terapia é um ato de coragem e autocuidado. Cuidar da mente é tão natural quanto ir ao dentista ou ao cardiologista.",
+                hashtags: "#SemEstigma #SaudeMentalParaTodos #Autocuidado #LAPSUS",
+                cta: "Marque alguém que quebrou esse tabu e começou a terapia!"
+            },
+            {
+                id: 507,
+                titulo: "Mito ou Verdade: Psicólogo Pode Atender Parentes Próximos ou Amigos?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Esclarecer a vedação ética descrita no Código de Ética do Psicólogo para preservar a neutralidade.",
+                direcaoArte: "Design explicativo sobre limites éticos da prática clínica.",
+                legenda: "MITO! O Código de Ética veda o atendimento de pessoas com quem o psicólogo mantenha laços afetivos ou familiares diretos.",
+                hashtags: "#EticaProfissional #CodigoDeEtica #Psicologia #LAPSUS",
+                cta: "Você sabia que existe essa regra ética estrita? Comente!"
+            },
+            {
+                id: 508,
+                titulo: "Mito ou Verdade: Apenas Psiquiatras Podem Passar Receita de Remédios?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Diferenciar a atuação do Psicólogo (não prescritor no Brasil) e do Médico Psiquiatra.",
+                direcaoArte: "Infográfico comparativo mostrando a atuação complementar entre Psicologia e Psiquiatria.",
+                legenda: "VERDADE! No Brasil, apenas profissionais médicos (como o psiquiatra) podem prescrever medicamentos psicotrópicos.",
+                hashtags: "#PsicologiaEPsiquiatria #TrabalhoMultiprofissional #LAPSUS",
+                cta: "Salve para não confundir os papéis de cada profissional!"
+            },
+            {
+                id: 509,
+                titulo: "Mito ou Verdade: Pessoas Idosas Não Têm Benefícios com Psicoterapia?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Combater o etarismo na saúde mental e valorizar a escuta de idosos no SUS.",
+                direcaoArte: "Fotos respeitosas e afetuosas de idosos sorrindo e participando de grupos terapêuticos.",
+                legenda: "MITO! A neuroplasticidade e a busca por sentido continuam ao longo de toda a vida. A psicogerontologia traz excelentes resultados!",
+                hashtags: "#Psicogerontologia #EtarismoNao #SaudeDoIdoso #SUS #LAPSUS",
+                cta: "Compartilhe para valorizar a saúde mental dos nossos idosos!"
+            },
+            {
+                id: 510,
+                titulo: "Mito ou Verdade: Para Ser Atendido no CAPS Precisa de Encaminhamento Médico?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Esclarecer que o CAPS é um serviço de porta aberta para acolhimento direto.",
+                direcaoArte: "Card promocional em azul-claro com a expressão 'Porta Aberta' em destaque.",
+                legenda: "MITO! O CAPS é um serviço de porta aberta. Você pode ir diretamente ao local e solicitar um acolhimento inicial sem receita ou encaminhamento.",
+                hashtags: "#PortaAberta #CAPS #AcessoDireto #SUS #LAPSUS",
+                cta: "Informação salva vidas! Compartilhe com quem precisa saber disso."
+            },
+            {
+                id: 511,
+                titulo: "Mito ou Verdade: A Urgência Psiquiátrica Só Pode Ser Atendida em Hospital Fechado?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Mostrar que UPAs, SAMU e CAPS III atendem crises sem necessidade de asilos.",
+                direcaoArte: "Fluxograma do atendimento humanizado em rede de urgência e emergência.",
+                legenda: "MITO! A rede RAPS está equipada para acolher crises em ambientes abertos e comunitários, respeitando a liberdade do paciente.",
+                hashtags: "#UrgenciaPsiquica #LutaAntimanicomial #RAPS #LAPSUS",
+                cta: "Salve para saber como agir em situações de crise!"
+            },
+            {
+                id: 512,
+                titulo: "Mito ou Verdade: Depressão é Apenas 'Falta de Vontade' ou 'Tristeza Passageira'?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar os fatores neurobiológicos, psicológicos e sociais do Transtorno Depressivo Maior.",
+                direcaoArte: "Design explicativo sobre a diferença entre tristeza fisiológica e quadro depressivo sintomático.",
+                legenda: "MITO! A depressão é uma condição complexa que altera neurotransmissores, sono e disposição. Não se resolve apenas com 'pensamento positivo'.",
+                hashtags: "#DepressaoTemTratamento #Empatia #SaudeMental #LAPSUS",
+                cta: "Ofereça escuta sem julgamentos. Envie esta mensagem de apoio."
+            },
+            {
+                id: 513,
+                titulo: "Mito ou Verdade: O Psicólogo Lê Pensamentos ou Adivinha o que Aconteceu?",
+                pilar: "Mitos & Verdades",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Desmistificar mitos místicos sobre a psicologia com humor leve e científico.",
+                direcaoArte: "Vídeo divertido desmistificando a ideia de 'leitura de mentes' na primeira consulta.",
+                legenda: "MITO! Nós não lemos mentes! Trabalhamos com o relato verbal, expressões e teorias validadas cientificamente sobre o comportamento humano.",
+                hashtags: "#HumorAcademico #PsicologiaCientifica #Mitos #LAPSUS",
+                cta: "Marque seu amigo que acha que você lê a mente dele!"
+            },
+            {
+                id: 514,
+                titulo: "Mito ou Verdade: Homens Não Devem Demonstrar Vulnerabilidade Emocional?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Discutir masculinidades tóxicas e o alto índice de suicídio entre a população masculina.",
+                direcaoArte: "Gráficos de conscientização em tons sóbrios incentivando a busca por ajuda psicológica.",
+                legenda: "MITO! Reprimir emoções adoece. Falar sobre medos e dores é um ato de coragem e proteção à saúde física e mental dos homens.",
+                hashtags: "#SaudeDoHomem #NovembroAzul #Masculinidades #LAPSUS",
+                cta: "Incentive os homens da sua vida a cuidarem da saúde mental."
+            },
+            {
+                id: 515,
+                titulo: "Mito ou Verdade: É Possível Ter Saúde Mental sem Estabilidade Social?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Explicar como fome, moradia precária e violência afetam diretamente o bem-estar psicológico.",
+                direcaoArte: "Infográfico conectando determinantes sociais da saúde com quadros de estresse crônico.",
+                legenda: "MITO! A saúde mental não depende apenas do indivíduo. Fome, desemprego e preconceito são fatores diretos de adoececimento psíquico.",
+                hashtags: "#DeterminantesSociais #JusticaSocial #SaudeColetiva #LAPSUS",
+                cta: "Reflexão importante: não patologize o sofrimento decorrente da pobreza!"
+            },
+            {
+                id: 516,
+                titulo: "Mito ou Verdade: Terapia Online Tem a Mesma Eficácia da Presencial?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Apresentar dados científicos que comprovam a equivalência em diversos quadros clínicos.",
+                direcaoArte: "Card comparativo validado por resoluções do Conselho Federal de Psicologia.",
+                legenda: "VERDADE! Diversas pesquisas comprovam que a psicoterapia mediada por tecnologia mantém o vínculo terapêutico e excelentes resultados.",
+                hashtags: "#Telepsicologia #TerapiaOnline #TecnologiaESaude #LAPSUS",
+                cta: "Você prefere atendimento online ou presencial? Comente!"
+            },
+            {
+                id: 517,
+                titulo: "Mito ou Verdade: Pessoas com Transtornos Mentais São Pessoas Violentas?",
+                pilar: "Mitos & Verdades",
+                formato: "Carrossel",
+                profundidade: "Aprofundado",
+                objetivo: "Desmistificar o estigma midiático de periculosidade associado à psicose ou esquizofrenia.",
+                direcaoArte: "Infográfico com dados estatísticos mostrando que pessoas com transtornos são mais vítimas do que agressoras.",
+                legenda: "MITO! Estatisticamente, pessoas com transtornos mentais graves são muito mais vítimas de violência e abandono do que agressoras.",
+                hashtags: "#CombateAoEstigma #SaudeMental SemPreconceito #LAPSUS",
+                cta: "Ajude a desconstruir esse preconceito compartilhando este post!"
+            },
+            {
+                id: 518,
+                titulo: "Mito ou Verdade: Estágio em Saúde Mental no SUS Dá Medo e É Perigoso?",
+                pilar: "Mitos & Verdades",
+                formato: "Reels",
+                profundidade: "Leve",
+                objetivo: "Tranquilizar acadêmicos de psicologia que vão iniciar o estágio em UBS ou CAPS.",
+                direcaoArte: "Depoimentos curtos de acadêmicos relatando o acolhimento caloroso das equipes do SUS.",
+                legenda: "MITO! O estágio no SUS é uma das experiências mais ricas e acolhedoras da graduação. O medo inicial dá lugar ao aprendizado ético e afetuoso.",
+                hashtags: "#EstagioNoSUS #VidaDeEstudante #Psicologia #LAPSUS",
+                cta: "Envie para aquele colega que está ansioso pelo início do estágio!"
+            },
+            {
+                id: 519,
+                titulo: "Mito ou Verdade: Todo Mundo Precisa Fazer Terapia o Tempo Todo?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Enfatizar que a psicoterapia tem começo, meio e alta, evitando a dependência do profissional.",
+                direcaoArte: "Design limpo enfatizando o conceito de 'Alta Terapêutica' e autonomia.",
+                legenda: "MITO! O objetivo da terapia é desenvolver a autonomia do sujeito para lidar com a vida sem depender eternamente do terapeuta.",
+                hashtags: "#Autonomia #AltaTerapeutica #PsicologiaCientifica #LAPSUS",
+                cta: "A alta terapêutica é motivo de comemoração! Salve o lembrete."
+            },
+            {
+                id: 520,
+                titulo: "Mito ou Verdade: A Liga LAPSUS é Aberta Apenas para Alunos do Último Ano?",
+                pilar: "Mitos & Verdades",
+                formato: "Estático",
+                profundidade: "Leve",
+                objetivo: "Convidar estudantes de todos os semestres para participarem das atividades de extensão e pesquisa da liga.",
+                direcaoArte: "Card institucional convidativo em tons de verde LAPSUS com chamada de boas-vindas.",
+                legenda: "MITO! A LAPSUS acolhe acadêmicos de todos os semestres interessados em Psicologia, Saúde Única e SUS. Venha aprender com a gente!",
+                hashtags: "#LAPSUS #UniFTC #LigaAcademica #SejaMembro #Psicologia",
+                cta: "Fique atento ao nosso próximo edital de seleção de membros!"
             }
         ];
-
-        const calendario2026 = [
-            { mes: "Janeiro", campanha: "Janeiro Branco", tema: "Saúde Mental e Acolhimento Comunitário" },
-            { mes: "Fevereiro", campanha: "Fevereiro Roxo/Laranja", tema: "Conscientização sobre Doenças Crônicas e Lupus" },
-            { mes: "Março", campanha: "Dia Internacional da Mulher", tema: "Saúde Mental das Mulheres e Determinantes Sociais" },
-            { mes: "Abril", campanha: "Abril Verde", tema: "Saúde do Trabalhador e Psicologia Organizacional no SUS" },
-            { mes: "Maio", campanha: "Maio Amarelo / 18 de Maio", tema: "Luta Antimanicomial e Combate ao Abuso Infantil" },
-            { mes: "Junho", campanha: "Junho Vermelho", tema: "Doação de Sangue e Solidariedade Comunitária" },
-            { mes: "Julho", campanha: "Julho Amarelo", tema: "Conscientização sobre Hepatites Virais e Prevenção" },
-            { mes: "Agosto", campanha: "Agosto Dourado / Dia do Psicólogo", tema: "Aleitamento Materno e Regulamentação Profissional" },
-            { mes: "Setembro", campanha: "Setembro Amarelo", tema: "Valorização da Vida e Prevenção na Rede RAPS" },
-            { mes: "Outubro", campanha: "Outubro Rosa", tema: "Saúde Integral da Mulher e Cuidado Humanizado" },
-            { mes: "Novembro", campanha: "Novembro Azul", tema: "Saúde do Homem e Quebra de Tabus Acessíveis" },
-            { mes: "Dezembro", campanha: "Dezembro Vermelho", tema: "Prevenção do HIV/ISTs e Combate ao Preconceito" }
-        ];
-
-        let postSelecionadoModal = null;
-        let kanbanState = JSON.parse(localStorage.getItem('lapsus_kanban')) || [];
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderizarPosts(postsDatabase);
-            renderizarCalendario();
-            renderizarKanban();
-            lucide.createIcons();
-        });
-
-        function switchTab(tab) {
-            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm');
-                btn.classList.add('text-slate-600');
-            });
-
-            document.getElementById(`sec-${tab}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`tab-${tab}`);
-            activeBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm');
-            activeBtn.classList.remove('text-slate-600');
-        }
-
-        function renderizarPosts(lista) {
-            const grid = document.getElementById('posts-grid');
-            grid.innerHTML = '';
-
-            if (lista.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-8">Nenhuma pauta encontrada com os filtros selecionados.</p>`;
-                return;
-            }
-
-            lista.forEach(post => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4 cursor-pointer";
-                card.onclick = () => abrirModal(post);
-
-                card.innerHTML = `
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between text-xs">
-                            <span class="font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">${post.pilar}</span>
-                            <span class="text-slate-400 font-medium">${post.formato}</span>
-                        </div>
-                        <h3 class="font-bold text-slate-800 text-base leading-snug">${post.titulo}</h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">${post.objetivo}</p>
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-                        <span>Nível: ${post.profundidade}</span>
-                        <span class="text-emerald-600 font-medium">Ver roteiro →</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function filtrarPosts() {
-            const busca = document.getElementById('search-input').value.toLowerCase();
-            const pilar = document.getElementById('filter-pilar').value;
-            const formato = document.getElementById('filter-formato').value;
-
-            const resultado = postsDatabase.filter(post => {
-                const bateBusca = post.titulo.toLowerCase().includes(busca) || post.objetivo.toLowerCase().includes(busca);
-                const batePilar = pilar === "" || post.pilar === pilar;
-                const bateFormato = formato === "" || post.formato === formato;
-                return bateBusca && batePilar && bateFormato;
-            });
-
-            renderizarPosts(resultado);
-        }
-
-        // MOTOR DE COPYWRITING E REFORMULAÇÃO INTELIGENTE DA LAPSUS
-        function gerarPropostaCriativa() {
-            const ideiaOriginal = document.getElementById('ideia-input').value.trim();
-            const pilar = document.getElementById('ideia-pilar').value;
-            const formato = document.getElementById('ideia-formato').value;
-            const tom = document.getElementById('ideia-tom').value;
-            const container = document.getElementById('resultado-assistente');
-
-            if (!ideiaOriginal) {
-                alert("Por favor, digite a sua ideia de post com as suas palavras.");
-                return;
-            }
-
-            // Processamento de palavras-chave para criar títulos e roteiros envolventes
-            const palavras = ideiaOriginal.toLowerCase();
-            let ganchoAtractivo = "";
-            let tituloRefinado = "";
-            let estruturaRoteiro = "";
-
-            // Gerador de Título & Gancho baseado no pilar e formato
-            if (palavras.includes("estágio") || palavras.includes("ansiedade") || palavras.includes("estudante") || palavras.includes("aula")) {
-                tituloRefinado = "Sentir Insegurança no Início do Estágio é Normal (E Faz Parte da Sua Formação)";
-                ganchoAtractivo = "Você já sentiu aquele 'frio na barriga' antes de iniciar um atendimento ou atividade no SUS?";
-            } else if (palavras.includes("sus") || palavras.includes("posto") || palavras.includes("ubs") || palavras.includes("caps")) {
-                tituloRefinado = "Como a Psicologia Transforma o Acolhimento na Rede Pública";
-                ganchoAtractivo = "O cuidado em saúde mental no SUS vai muito além do que vemos nos livros.";
-            } else if (palavras.includes("ambiente") || palavras.includes("animal") || palavras.includes("natureza")) {
-                tituloRefinado = "Conexões Invisíveis: Como o Nosso Meio Ambiente Afeta a Saúde Mental";
-                ganchoAtractivo = "Cuidar da mente também exige olhar para o ambiente em que vivemos.";
-            } else {
-                tituloRefinado = ideiaOriginal.charAt(0).toUpperCase() + ideiaOriginal.slice(1, 60) + (ideiaOriginal.length > 60 ? "..." : "");
-                ganchoAtractivo = "Vamos refletir juntos sobre um tema fundamental na Psicologia e no SUS?";
-            }
-
-            // Estruturação do Roteiro Criativo por Formato
-            if (formato === "Carrossel") {
-                estruturaRoteiro = `
-                    <ol class="list-decimal pl-5 space-y-1.5 text-xs text-slate-600">
-                        <li><strong>Slide 1 (Capa):</strong> Título principal + Pergunta de gancho atrativa.</li>
-                        <li><strong>Slide 2 (O Problema/Contexto):</strong> ${ideiaOriginal}</li>
-                        <li><strong>Slide 3 (Conexão com a Psicologia/SUS):</strong> Como a prática fundamentada e a ética abordam esse cenário.</li>
-                        <li><strong>Slide 4 (Dica Prática/Reflexão):</strong> Passo a passo ou ponto chave para o leitor guardar.</li>
-                        <li><strong>Slide 5 (Encerramento/CTA):</strong> Convite para salvar e compartilhar no perfil da LAPSUS.</li>
-                    </ol>
-                `;
-            } else if (formato === "Reels") {
-                estruturaRoteiro = `
-                    <div class="space-y-1.5 text-xs text-slate-600">
-                        <p><strong>0s - 3s (Hook Inicial):</strong> "Se você cursa Psicologia ou se interessa pelo SUS, precisa saber disso..."</p>
-                        <p><strong>3s - 15s (Desenvolvimento):</strong> Explicação dinâmica em tópicos da ideia principal: <em>${ideiaOriginal}</em></p>
-                        <p><strong>15s - 30s (Conclusão + CTA):</strong> Reflexão final + "Comente aqui a sua opinião e siga a LAPSUS para mais!".</p>
-                    </div>
-                `;
-            } else {
-                estruturaRoteiro = `
-                    <p class="text-xs text-slate-600"><strong>Layout de Impacto:</strong> Card único minimalista com frase central destacada e legenda explicativa detalhada.</p>
-                `;
-            }
-
-            container.classList.remove('hidden');
-            container.innerHTML = `
-                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
-                    <div>
-                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${pilar}</span>
-                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 ml-2">Tom: ${tom}</span>
-                    </div>
-                    <span class="text-xs text-slate-400 font-medium">${formato}</span>
-                </div>
-
-                <div>
-                    <h3 class="text-base font-bold text-slate-900">${tituloRefinado}</h3>
-                    <p class="text-xs text-emerald-600 font-medium mt-1">Gancho de Engajamento: "${ganchoAtractivo}"</p>
-                </div>
-
-                <div class="space-y-3 text-sm text-slate-700">
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Estrutura de Conteúdo (${formato}):</strong>
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            ${estruturaRoteiro}
-                        </div>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Legenda Marketeira & Humanizada:</strong>
-                        <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-100 whitespace-pre-line text-xs text-slate-700 leading-relaxed">
-${ganchoAtractivo}
-
-${ideiaOriginal}
-
-A Psicologia e o Sistema Único de Saúde (SUS) nos ensinam que o cuidado coletivo se constrói através da escuta, da empatia e do embasamento científico. 
-
-Cuidar da nossa formação é também cuidar da saúde da nossa comunidade! 💚🧠
-
-O que você pensa sobre esse assunto? Já vivenciou algo parecido? 
-Deixe o seu comentário abaixo e compartilhe com a sua rede!
-                        </div>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Hashtags Estratégicas:</strong>
-                        <p class="text-emerald-600 text-xs">#LAPSUS #Psicologia #SUS #UniFTC #SaudeColetiva #SaudeUnica #FormacaoEmPsicologia #Acolhimento</p>
-                    </div>
-                </div>
-
-                <div class="pt-3 border-t border-slate-100 flex justify-end">
-                    <button onclick="copiarLegendaGerada()" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-medium hover:bg-slate-800 transition-all">
-                        Copiar Legenda
-                    </button>
-                </div>
-            `;
-        }
-
-        function copiarLegendaGerada() {
-            const container = document.getElementById('resultado-assistente');
-            const legendaText = container.querySelector('.whitespace-pre-line').innerText;
-            navigator.clipboard.writeText(legendaText);
-            alert("Legenda copiada para a área de transferência!");
-        }
-
-        function abrirModal(post) {
-            postSelecionadoModal = post;
-            document.getElementById('modal-pilar').innerText = post.pilar;
-            document.getElementById('modal-titulo').innerText = post.titulo;
-            document.getElementById('modal-formato').innerText = `Formato recomendado: ${post.formato} (${post.profundidade})`;
-
-            document.getElementById('modal-conteudo').innerHTML = `
-                <div>
-                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400 mb-1">Objetivo Estratégico</h4>
-                    <p>${post.objetivo}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400 mb-1">Direção de Arte Sugerida</h4>
-                    <p class="bg-slate-50 p-3 rounded-lg border border-slate-100">${post.direcaoArte}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400 mb-1">Sugestão de Legenda</h4>
-                    <p class="whitespace-pre-line bg-slate-50 p-3 rounded-lg border border-slate-100">${post.legenda}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400 mb-1">Hashtags Éticas</h4>
-                    <p class="text-emerald-600">${post.hashtags}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider text-slate-400 mb-1">Chamada para Ação (CTA)</h4>
-                    <p class="font-medium text-slate-800">${post.cta}</p>
-                </div>
-            `;
-
-            document.getElementById('modal-post').classList.remove('hidden');
-        }
-
-        function fecharModal() {
-            document.getElementById('modal-post').classList.add('hidden');
-            postSelecionadoModal = null;
-        }
-
-        function renderizarCalendario() {
-            const container = document.getElementById('calendario-grid');
-            container.innerHTML = '';
-
-            calendario2026.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2";
-                card.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">${item.mes}</span>
-                        <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full">${item.campanha}</span>
-                    </div>
-                    <h4 class="text-sm font-bold text-slate-800">${item.tema}</h4>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function adicionarAoKanban() {
-            if (!postSelecionadoModal) return;
-
-            const item = {
-                id: Date.now(),
-                titulo: postSelecionadoModal.titulo,
-                pilar: postSelecionadoModal.pilar,
-                status: "banco"
-            };
-
-            kanbanState.push(item);
-            salvarEAtualizarKanban();
-            fecharModal();
-            alert("Pauta adicionada ao Quadro Kanban!");
-        }
-
-        function moverKanban(id, novoStatus) {
-            kanbanState = kanbanState.map(item => item.id === id ? { ...item, status: novoStatus } : item);
-            salvarEAtualizarKanban();
-        }
-
-        function salvarEAtualizarKanban() {
-            localStorage.setItem('lapsus_kanban', JSON.stringify(kanbanState));
-            renderizarKanban();
-        }
-
-        function renderizarKanban() {
-            const colunas = {
-                banco: document.getElementById('col-banco'),
-                producao: document.getElementById('col-producao'),
-                pronto: document.getElementById('col-pronto'),
-                publicado: document.getElementById('col-publicado')
-            };
-
-            Object.values(colunas).forEach(col => col.innerHTML = '');
-
-            const contadores = { banco: 0, producao: 0, pronto: 0, publicado: 0 };
-
-            kanbanState.forEach(item => {
-                contadores[item.status]++;
-                const card = document.createElement('div');
-                card.className = "bg-white p-3 rounded-lg border border-slate-200 shadow-sm space-y-2 text-xs";
-                
-                card.innerHTML = `
-                    <span class="font-semibold text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-600">${item.pilar}</span>
-                    <h4 class="font-bold text-slate-800 text-sm leading-snug">${item.titulo}</h4>
-                    <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                        ${item.status !== 'banco' ? `<button onclick="moverKanban(${item.id}, 'banco')" class="text-slate-400 hover:text-slate-600">← Voltar</button>` : '<span></span>'}
-                        ${item.status === 'banco' ? `<button onclick="moverKanban(${item.id}, 'producao')" class="text-amber-600 font-medium">Design →</button>` : ''}
-                        ${item.status === 'producao' ? `<button onclick="moverKanban(${item.id}, 'pronto')" class="text-blue-600 font-medium">Aprovar →</button>` : ''}
-                        ${item.status === 'pronto' ? `<button onclick="moverKanban(${item.id}, 'publicado')" class="text-emerald-600 font-medium">Publicar →</button>` : ''}
-                    </div>
-                `;
-
-                if (colunas[item.status]) {
-                    colunas[item.status].appendChild(card);
-                }
-            });
-
-            document.getElementById('count-banco').innerText = contadores.banco;
-            document.getElementById('count-producao').innerText = contadores.producao;
-            document.getElementById('count-pronto').innerText = contadores.pronto;
-            document.getElementById('count-publicado').innerText = contadores.publicado;
-        }
-    </script>
-</body>
-</html>
