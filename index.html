@@ -69,26 +69,24 @@
             </div>
 
             <!-- Grid de Posts -->
-            <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Posts inseridos dinamicamente via JS -->
-            </div>
+            <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
 
-        <!-- ABA 2: ASSISTENTE INTELIGENTE LAPSUS (LAPSUS-AI) -->
+        <!-- ABA 2: ASSISTENTE INTELIGENTE LAPSUS (COPYWRITING) -->
         <section id="sec-assistente" class="hidden max-w-3xl mx-auto space-y-6">
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">Assistente Estruturador de Roteiros LAPSUS</h2>
-                    <p class="text-sm text-slate-500">Digite a sua ideia bruta e selecione o pilar. A ferramenta irá formatar automaticamente a proposta de publicação seguindo as diretrizes éticas da Psicologia e do SUS.</p>
+                    <h2 class="text-lg font-bold text-slate-900">Redator Estratégico LAPSUS</h2>
+                    <p class="text-sm text-slate-500">Escreva a sua ideia com as suas próprias palavras. O assistente transformará o seu pensamento em um post atrativo, informativo e alinhado com o marketing de saúde ética.</p>
                 </div>
 
-                <div class="space-y-3">
+                <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">Ideia ou Tema do Post:</label>
-                        <textarea id="ideia-input" rows="4" placeholder="Ex: A importância das Equipes Multiprofissionais no acolhimento de pacientes com ansiedade na Atenção Básica..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">A sua ideia em palavras simples:</label>
+                        <textarea id="ideia-input" rows="4" placeholder="Ex: Eu tava pensando em falar sobre como os estudantes de psicologia ficam ansiosos nas primeiras consultas do estágio e como o SUS acolhe isso na supervisão..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Pilar Temático:</label>
                             <select id="ideia-pilar" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
@@ -100,7 +98,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Formato Pretendido:</label>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Formato:</label>
                             <select id="ideia-formato" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                                 <option value="Carrossel">Carrossel (Educativo)</option>
                                 <option value="Reels">Reels (Dinâmico/Vídeo)</option>
@@ -108,16 +106,24 @@
                                 <option value="Stories">Sequência de Stories</option>
                             </select>
                         </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Tom de Voz:</label>
+                            <select id="ideia-tom" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                <option value="Acolhedor & Empático">Acolhedor & Empático</option>
+                                <option value="Informativo & Didático">Informativo & Didático</option>
+                                <option value="Inspirador & Acadêmico">Inspirador & Acadêmico</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <button onclick="gerarEstruturaPost()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow transition-all">
-                        Estruturar Proposta de Post
+                    <button onclick="gerarPropostaCriativa()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm rounded-lg shadow transition-all flex items-center justify-center gap-2">
+                        Criar Roteiro e Legenda Marcante
                     </button>
                 </div>
             </div>
 
-            <!-- Resultado da Estruturação -->
-            <div id="resultado-assistente" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <!-- Resultado Reformulado -->
+            <div id="resultado-assistente" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
                 <!-- Gerado via JS -->
             </div>
         </section>
@@ -127,10 +133,7 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <h2 class="text-lg font-bold text-slate-900 mb-2">Calendário de Campanhas de Saúde (2026)</h2>
                 <p class="text-sm text-slate-500 mb-6">Mapeamento das principais datas comemorativas e campanhas em saúde pública ao longo do ano.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="calendario-grid">
-                    <!-- Calendário gerado via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="calendario-grid"></div>
             </div>
         </section>
 
@@ -144,7 +147,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Coluna 1 -->
                 <div class="bg-slate-100 p-4 rounded-xl space-y-3">
                     <h3 class="font-bold text-xs uppercase tracking-wider text-slate-600 flex items-center justify-between">
                         <span>Banco de Ideias</span>
@@ -153,7 +155,6 @@
                     <div id="col-banco" class="space-y-3 min-h-[300px]"></div>
                 </div>
 
-                <!-- Coluna 2 -->
                 <div class="bg-slate-100 p-4 rounded-xl space-y-3">
                     <h3 class="font-bold text-xs uppercase tracking-wider text-amber-700 flex items-center justify-between">
                         <span>Em Roteiro / Design</span>
@@ -162,7 +163,6 @@
                     <div id="col-producao" class="space-y-3 min-h-[300px]"></div>
                 </div>
 
-                <!-- Coluna 3 -->
                 <div class="bg-slate-100 p-4 rounded-xl space-y-3">
                     <h3 class="font-bold text-xs uppercase tracking-wider text-blue-700 flex items-center justify-between">
                         <span>Pronto para Postar</span>
@@ -171,7 +171,6 @@
                     <div id="col-pronto" class="space-y-3 min-h-[300px]"></div>
                 </div>
 
-                <!-- Coluna 4 -->
                 <div class="bg-slate-100 p-4 rounded-xl space-y-3">
                     <h3 class="font-bold text-xs uppercase tracking-wider text-emerald-700 flex items-center justify-between">
                         <span>Publicado</span>
@@ -184,7 +183,7 @@
 
     </main>
 
-    <!-- Modal de Detalhes do Post -->
+    <!-- Modal de Detalhes -->
     <div id="modal-post" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white max-w-2xl w-full rounded-2xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
             <div class="p-6 border-b border-slate-100 flex items-center justify-between">
@@ -194,9 +193,7 @@
                 </div>
                 <button onclick="fecharModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-lg">✕</button>
             </div>
-            <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-700" id="modal-conteudo">
-                <!-- Preenchido via JS -->
-            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-700" id="modal-conteudo"></div>
             <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
                 <span id="modal-formato" class="text-xs text-slate-500 font-medium">Formato</span>
                 <button onclick="adicionarAoKanban()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium hover:bg-emerald-700 shadow-sm transition-all">
@@ -206,9 +203,8 @@
         </div>
     </div>
 
-    <!-- Script de Funcionamento da Aplicação -->
+    <!-- Script de Funcionamento -->
     <script>
-        // Banco de dados com pautas selecionadas para o contexto da LAPSUS 2026
         const postsDatabase = [
             {
                 id: 1,
@@ -218,7 +214,7 @@
                 profundidade: "Aprofundado",
                 objetivo: "Apresentar o papel das Equipes Multiprofissionais (eMulti) no SUS e o acolhimento na Atenção Primária à Saúde.",
                 direcaoArte: "Visual limpo, fundo verde-suave com ilustrações vetoriais de profissionais de saúde em roda de conversa.",
-                legenda: "A atuação da psicologia no SUS vai muito além do consultório tradicional! As Equipes Multiprofissionais (eMulti) fortalecem a Atenção Básica integrando saberes para um cuidado comunitário e territorialized. Como a psicologia pode contribuir no seu território?",
+                legenda: "A atuação da psicologia no SUS vai muito além do consultório tradicional! As Equipes Multiprofissionais (eMulti) fortalecem a Atenção Básica integrando saberes para um cuidado comunitário e territorializado. Como a psicologia pode contribuir no seu território?",
                 hashtags: "#SUS #PsicologiaNoSUS #eMulti #AtençãoBásica #LAPSUS #SaudeColetiva",
                 cta: "Comente como funciona o acolhimento no posto de saúde do seu bairro!"
             },
@@ -266,13 +262,12 @@
                 profundidade: "Leve",
                 objetivo: "Desmistificar o acesso aos serviços de saúde mental na rede pública.",
                 direcaoArte: "Card dividido ao meio com tipografia clara em alto contraste (Azul e Amarelo brando).",
-                legenda: "MITO! As Unidades Básicas de Saúde (UBS) e os centros comunitários realizam ações de promoção da saúde mental, prevenção e acolhimento preventivo para toda a população, não apenas casos de Crise.",
+                legenda: "MITO! As Unidades Básicas de Saúde (UBS) e os centros comunitários realizam ações de promoção da saúde mental, prevenção e acolhimento preventivo para toda a população, não apenas casos de crise.",
                 hashtags: "#MitosEVerdades #PsicologiaSUS #PromocaoDaSaude #UniFTC #LAPSUS",
                 cta: "Você sabia dessa informação? Deixe nos comentários!"
             }
         ];
 
-        // Calendário Sazonal 2026
         const calendario2026 = [
             { mes: "Janeiro", campanha: "Janeiro Branco", tema: "Saúde Mental e Acolhimento Comunitário" },
             { mes: "Fevereiro", campanha: "Fevereiro Roxo/Laranja", tema: "Conscientização sobre Doenças Crônicas e Lupus" },
@@ -291,7 +286,6 @@
         let postSelecionadoModal = null;
         let kanbanState = JSON.parse(localStorage.getItem('lapsus_kanban')) || [];
 
-        // Inicialização ao carregar a página
         document.addEventListener("DOMContentLoaded", () => {
             renderizarPosts(postsDatabase);
             renderizarCalendario();
@@ -299,7 +293,6 @@
             lucide.createIcons();
         });
 
-        // Alternância de Abas
         function switchTab(tab) {
             document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -313,7 +306,6 @@
             activeBtn.classList.remove('text-slate-600');
         }
 
-        // Renderizar Cards de Posts
         function renderizarPosts(lista) {
             const grid = document.getElementById('posts-grid');
             grid.innerHTML = '';
@@ -346,7 +338,6 @@
             });
         }
 
-        // Filtro da busca
         function filtrarPosts() {
             const busca = document.getElementById('search-input').value.toLowerCase();
             const pilar = document.getElementById('filter-pilar').value;
@@ -362,7 +353,125 @@
             renderizarPosts(resultado);
         }
 
-        // Modal de Roteiro
+        // MOTOR DE COPYWRITING E REFORMULAÇÃO INTELIGENTE DA LAPSUS
+        function gerarPropostaCriativa() {
+            const ideiaOriginal = document.getElementById('ideia-input').value.trim();
+            const pilar = document.getElementById('ideia-pilar').value;
+            const formato = document.getElementById('ideia-formato').value;
+            const tom = document.getElementById('ideia-tom').value;
+            const container = document.getElementById('resultado-assistente');
+
+            if (!ideiaOriginal) {
+                alert("Por favor, digite a sua ideia de post com as suas palavras.");
+                return;
+            }
+
+            // Processamento de palavras-chave para criar títulos e roteiros envolventes
+            const palavras = ideiaOriginal.toLowerCase();
+            let ganchoAtractivo = "";
+            let tituloRefinado = "";
+            let estruturaRoteiro = "";
+
+            // Gerador de Título & Gancho baseado no pilar e formato
+            if (palavras.includes("estágio") || palavras.includes("ansiedade") || palavras.includes("estudante") || palavras.includes("aula")) {
+                tituloRefinado = "Sentir Insegurança no Início do Estágio é Normal (E Faz Parte da Sua Formação)";
+                ganchoAtractivo = "Você já sentiu aquele 'frio na barriga' antes de iniciar um atendimento ou atividade no SUS?";
+            } else if (palavras.includes("sus") || palavras.includes("posto") || palavras.includes("ubs") || palavras.includes("caps")) {
+                tituloRefinado = "Como a Psicologia Transforma o Acolhimento na Rede Pública";
+                ganchoAtractivo = "O cuidado em saúde mental no SUS vai muito além do que vemos nos livros.";
+            } else if (palavras.includes("ambiente") || palavras.includes("animal") || palavras.includes("natureza")) {
+                tituloRefinado = "Conexões Invisíveis: Como o Nosso Meio Ambiente Afeta a Saúde Mental";
+                ganchoAtractivo = "Cuidar da mente também exige olhar para o ambiente em que vivemos.";
+            } else {
+                tituloRefinado = ideiaOriginal.charAt(0).toUpperCase() + ideiaOriginal.slice(1, 60) + (ideiaOriginal.length > 60 ? "..." : "");
+                ganchoAtractivo = "Vamos refletir juntos sobre um tema fundamental na Psicologia e no SUS?";
+            }
+
+            // Estruturação do Roteiro Criativo por Formato
+            if (formato === "Carrossel") {
+                estruturaRoteiro = `
+                    <ol class="list-decimal pl-5 space-y-1.5 text-xs text-slate-600">
+                        <li><strong>Slide 1 (Capa):</strong> Título principal + Pergunta de gancho atrativa.</li>
+                        <li><strong>Slide 2 (O Problema/Contexto):</strong> ${ideiaOriginal}</li>
+                        <li><strong>Slide 3 (Conexão com a Psicologia/SUS):</strong> Como a prática fundamentada e a ética abordam esse cenário.</li>
+                        <li><strong>Slide 4 (Dica Prática/Reflexão):</strong> Passo a passo ou ponto chave para o leitor guardar.</li>
+                        <li><strong>Slide 5 (Encerramento/CTA):</strong> Convite para salvar e compartilhar no perfil da LAPSUS.</li>
+                    </ol>
+                `;
+            } else if (formato === "Reels") {
+                estruturaRoteiro = `
+                    <div class="space-y-1.5 text-xs text-slate-600">
+                        <p><strong>0s - 3s (Hook Inicial):</strong> "Se você cursa Psicologia ou se interessa pelo SUS, precisa saber disso..."</p>
+                        <p><strong>3s - 15s (Desenvolvimento):</strong> Explicação dinâmica em tópicos da ideia principal: <em>${ideiaOriginal}</em></p>
+                        <p><strong>15s - 30s (Conclusão + CTA):</strong> Reflexão final + "Comente aqui a sua opinião e siga a LAPSUS para mais!".</p>
+                    </div>
+                `;
+            } else {
+                estruturaRoteiro = `
+                    <p class="text-xs text-slate-600"><strong>Layout de Impacto:</strong> Card único minimalista com frase central destacada e legenda explicativa detalhada.</p>
+                `;
+            }
+
+            container.classList.remove('hidden');
+            container.innerHTML = `
+                <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${pilar}</span>
+                        <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 ml-2">Tom: ${tom}</span>
+                    </div>
+                    <span class="text-xs text-slate-400 font-medium">${formato}</span>
+                </div>
+
+                <div>
+                    <h3 class="text-base font-bold text-slate-900">${tituloRefinado}</h3>
+                    <p class="text-xs text-emerald-600 font-medium mt-1">Gancho de Engajamento: "${ganchoAtractivo}"</p>
+                </div>
+
+                <div class="space-y-3 text-sm text-slate-700">
+                    <div>
+                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Estrutura de Conteúdo (${formato}):</strong>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100">
+                            ${estruturaRoteiro}
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Legenda Marketeira & Humanizada:</strong>
+                        <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-100 whitespace-pre-line text-xs text-slate-700 leading-relaxed">
+${ganchoAtractivo}
+
+${ideiaOriginal}
+
+A Psicologia e o Sistema Único de Saúde (SUS) nos ensinam que o cuidado coletivo se constrói através da escuta, da empatia e do embasamento científico. 
+
+Cuidar da nossa formação é também cuidar da saúde da nossa comunidade! 💚🧠
+
+O que você pensa sobre esse assunto? Já vivenciou algo parecido? 
+Deixe o seu comentário abaixo e compartilhe com a sua rede!
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Hashtags Estratégicas:</strong>
+                        <p class="text-emerald-600 text-xs">#LAPSUS #Psicologia #SUS #UniFTC #SaudeColetiva #SaudeUnica #FormacaoEmPsicologia #Acolhimento</p>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex justify-end">
+                    <button onclick="copiarLegendaGerada()" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-medium hover:bg-slate-800 transition-all">
+                        Copiar Legenda
+                    </button>
+                </div>
+            `;
+        }
+
+        function copiarLegendaGerada() {
+            const container = document.getElementById('resultado-assistente');
+            const legendaText = container.querySelector('.whitespace-pre-line').innerText;
+            navigator.clipboard.writeText(legendaText);
+            alert("Legenda copiada para a área de transferência!");
+        }
+
         function abrirModal(post) {
             postSelecionadoModal = post;
             document.getElementById('modal-pilar').innerText = post.pilar;
@@ -400,59 +509,6 @@
             postSelecionadoModal = null;
         }
 
-        // Assistente de Estruturação Interno (Sem API externa)
-        function gerarEstruturaPost() {
-            const ideia = document.getElementById('ideia-input').value.trim();
-            const pilar = document.getElementById('ideia-pilar').value;
-            const formato = document.getElementById('ideia-formato').value;
-            const container = document.getElementById('resultado-assistente');
-
-            if (!ideia) {
-                alert("Por favor, digite a sua ideia de post no campo de texto.");
-                return;
-            }
-
-            container.classList.remove('hidden');
-            container.innerHTML = `
-                <div class="border-b border-slate-100 pb-3">
-                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${pilar}</span>
-                    <h3 class="text-base font-bold text-slate-900 mt-2">Proposta Estruturada: ${ideia.substring(0, 45)}...</h3>
-                </div>
-                
-                <div class="space-y-3 text-sm text-slate-700">
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400">Objetivo do Post:</strong>
-                        <p>Apresentar a relevância do tema no contexto da Psicologia e da Saúde Coletiva de forma acessível e ética.</p>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400">Direção de Arte (${formato}):</strong>
-                        <p class="bg-slate-50 p-3 rounded-lg">Layout com identidade visual da LAPSUS, utilizando tons institucionais (Verde/Azul/Branco), tipografia sem serifa de fácil leitura e elementos visuais de acolhimento.</p>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400">Rascunho de Legenda:</strong>
-                        <div class="bg-slate-50 p-3 rounded-lg whitespace-pre-line">
-                            ${ideia}
-                            
-                            No âmbito do SUS e da Psicologia, compreender estes processos é essencial para garantir um cuidado humanizado, comunitário e inclusivo.
-                        </div>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400">Hashtags Sugeridas:</strong>
-                        <p class="text-emerald-600">#LAPSUS #Psicologia #SUS #SaudeUnica #UniFTC #SaudeMental #PsicologiaBaseadaEmEvidencias</p>
-                    </div>
-
-                    <div>
-                        <strong class="block text-xs uppercase tracking-wider text-slate-400">Chamada para Ação (CTA):</strong>
-                        <p>Qual a sua opinião ou experiência sobre este assunto? Deixe o seu comentário abaixo!</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Renderizar Calendário
         function renderizarCalendario() {
             const container = document.getElementById('calendario-grid');
             container.innerHTML = '';
@@ -471,7 +527,6 @@
             });
         }
 
-        // Adicionar Post ao Kanban
         function adicionarAoKanban() {
             if (!postSelecionadoModal) return;
 
@@ -488,7 +543,6 @@
             alert("Pauta adicionada ao Quadro Kanban!");
         }
 
-        // Mover status no Kanban
         function moverKanban(id, novoStatus) {
             kanbanState = kanbanState.map(item => item.id === id ? { ...item, status: novoStatus } : item);
             salvarEAtualizarKanban();
@@ -499,7 +553,6 @@
             renderizarKanban();
         }
 
-        // Renderizar Quadro Kanban
         function renderizarKanban() {
             const colunas = {
                 banco: document.getElementById('col-banco'),
